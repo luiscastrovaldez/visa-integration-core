@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/06/2012 08:48:58 PM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="com.visa.domain.LogTransaction" table="securitylogtransaction">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="entity" type="string">
+            <column name="entity" length="200" not-null="true" />
+        </property>
+        <property name="oldValue" type="string">
+            <column name="oldvalue" length="200" not-null="true" />
+        </property>
+        <property name="newValue" type="string">
+            <column name="newvalue" length="200" not-null="true" />
+        </property>
+        <property name="processDate" type="java.util.Date">
+            <column name="processdate" />
+        </property>
+        <property name="userName" type="string">
+            <column name="username" length="60" not-null="true" />
+        </property>
+        <property name="operation" type="string">
+            <column name="operation" length="60" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
