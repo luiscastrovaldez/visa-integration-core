@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.visa</groupId>
-	<artifactId>Visa-ws-core</artifactId>
+	<artifactId>visaintegrationcore</artifactId>
 	<version>1.0.0.0</version>
 	<packaging>jar</packaging>
 
@@ -13,14 +13,34 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.6</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<hibernate.version>3.6.9.Final</hibernate.version>
 		<slf4j.version>1.6.4</slf4j.version>
-		<core.party.version>1.5.5.0</core.party.version>
-		<spring.security.version>3.1.0.RELEASE</spring.security.version>
-		<eclipselink.version>2.4.0</eclipselink.version>
+		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java/com/visa/resource</directory>
+				<targetPath>com/visa/resource</targetPath>				
+			</resource>
+			
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>				
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 
 	<dependencies>
 
@@ -65,6 +85,17 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>validation-api</artifactId>
+					<groupId>javax.validation</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -75,8 +106,20 @@
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-api</artifactId>
 				</exclusion>
+				<exclusion>
+					<artifactId>jta</artifactId>
+					<groupId>javax.transaction</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<artifactId>jta</artifactId>
+			<groupId>javax.transaction</groupId>
+			<version>1.1</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -117,27 +160,12 @@
 			<version>${spring.version}</version>
 
 		</dependency>
-		<!--
-			<dependency> <groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId> <version>2.4.8</version>
-			<scope>test</scope> </dependency>
-		-->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>test</scope>
-		</dependency>
 
 
 
 
-		<dependency>
-			<groupId>tomcat</groupId>
-			<artifactId>naming-common</artifactId>
-			<version>4.1.31</version>
-			<scope>test</scope>
-		</dependency>
+
+
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -193,18 +221,5 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.1</version>
-		</dependency>
-
-
 	</dependencies>
 </project>

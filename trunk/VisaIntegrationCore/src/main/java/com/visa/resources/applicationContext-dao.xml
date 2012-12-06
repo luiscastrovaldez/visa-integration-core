@@ -26,6 +26,8 @@
 				<prop key="hibernate.generate_statistics">
 					${hibernate.generate_statistics}
 				</prop>
+				<prop key="hibernate.validator.apply_to_ddl">false</prop>
+				<prop key="hibernate.validator.autoregister_listeners">false</prop>
 			</props>
 		</property>
 
