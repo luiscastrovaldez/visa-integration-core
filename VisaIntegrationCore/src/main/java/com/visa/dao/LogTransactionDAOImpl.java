@@ -16,10 +16,9 @@ public class LogTransactionDAOImpl extends HibernateDaoSupport implements LogTra
 	public LogTransactionDAOImpl(SessionFactory sessionFactory) {
 		setSessionFactory(sessionFactory);
 	}
+
 	public LogTransaction findById(Serializable id) {
 		return getHibernateTemplate().get(LogTransaction.class, id);
 	}
 
-	
-	
 }

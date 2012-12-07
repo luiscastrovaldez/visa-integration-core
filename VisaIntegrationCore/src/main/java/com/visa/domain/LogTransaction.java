@@ -4,9 +4,6 @@ import java.util.Date;
 
 public class LogTransaction implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String entity;
@@ -19,8 +16,7 @@ public class LogTransaction implements java.io.Serializable {
 	public LogTransaction() {
 	}
 
-	public LogTransaction(String entity, String oldValue,
-			String newValue, Date processDate, String userName, String operation) {
+	public LogTransaction(String entity, String oldValue, String newValue, Date processDate, String userName, String operation) {
 		this.entity = entity;
 		this.oldValue = oldValue;
 		this.newValue = newValue;
