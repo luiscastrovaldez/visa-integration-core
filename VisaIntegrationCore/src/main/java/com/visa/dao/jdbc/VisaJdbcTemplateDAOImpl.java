@@ -30,6 +30,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private DataSource dataSource;
+	private ExecuteProcedure execSp;
 
 	@Autowired
 	public VisaJdbcTemplateDAOImpl(SessionFactory sessionFactory) {
@@ -42,65 +43,99 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements
 				dataSource);
 	}
 
-	public Map obtenerCarrerasPostgrado(String psAlumno) {
+	@SuppressWarnings("unchecked")
+	public List<Carrera> obtenerCarrerasPostgrado(String psAlumno) throws Exception{
 		// TODO Auto-generated method stub
-
-		dataSource = SessionFactoryUtils.getDataSource(getSession()
-				.getSessionFactory());
-		List<SqlParameter> paramsInput = new ArrayList<SqlParameter>();
-		paramsInput.add(new SqlParameter(Constants.PS_ALUMNO, OracleTypes.NVARCHAR));
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String,Object> inputs = null;
+		Map<String,Object> results = null;
+		List<Carrera> lista = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_ALUMNO, OracleTypes.NVARCHAR));
+			
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
+			
+			execSp = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPOSTGRADO, paramsInput,paramsOutput);
+			inputs = new HashMap<String,Object>();
+			inputs.put(Constants.PS_ALUMNO,psAlumno);
+			results = execSp.executeSp(inputs);
+			lista = ExecuteProcedure.retornaLista(results);
+		} catch (Exception e ){
+			
+		}
 		
-		List<SqlOutParameter> paramsOutput = new ArrayList<SqlOutParameter>();
-		paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
 		
-		ExecuteProcedure sproc = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPOSTGRADO, paramsInput,paramsOutput);
-		Map inputs = new HashMap();
-		inputs.put(Constants.PS_ALUMNO,psAlumno);
-		Map results = sproc.executeSp(inputs);
-		
-		return results;
+		return lista;
  
 	}
 	
-	public Map obtenerCarrerasPostulante(String psPostulante) {
+	@SuppressWarnings("unchecked")
+	public List<Carrera> obtenerCarrerasPostulante(String psPostulante) throws Exception{
 		// TODO Auto-generated method stub
-
-		dataSource = SessionFactoryUtils.getDataSource(getSession()
-				.getSessionFactory());
-		List<SqlParameter> paramsInput = new ArrayList<SqlParameter>();
-		paramsInput.add(new SqlParameter(Constants.PS_POSTULANTE, OracleTypes.NVARCHAR));
-		
-		List<SqlOutParameter> paramsOutput = new ArrayList<SqlOutParameter>();
-		paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
-		
-		ExecuteProcedure sproc = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPOSTULANTE, paramsInput,paramsOutput);
-		Map inputs = new HashMap();
-		inputs.put(Constants.PS_POSTULANTE,psPostulante);
-		Map results = sproc.executeSp(inputs);
-		
-		return results;
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String,Object> inputs = null;
+		Map<String,Object> results = null;
+		List<Carrera> lista = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_POSTULANTE, OracleTypes.NVARCHAR));
+			
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
+			
+			execSp = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPOSTULANTE, paramsInput,paramsOutput);
+			inputs = new HashMap<String,Object>();
+			inputs.put(Constants.PS_POSTULANTE,psPostulante);
+			results = execSp.executeSp(inputs);
+			lista = ExecuteProcedure.retornaLista(results);
+			
+		} catch (Exception e){
+			throw e;
+		}			
+				
+		return lista;
  
 	}
 	
-	public Map obtenerCarrerasProspecto(String psProspecto, Integer psAtencion) {
+	
+	@SuppressWarnings("unchecked")
+	public List<Carrera> obtenerCarrerasProspecto(String psProspecto, Integer psAtencion) throws Exception {
 		// TODO Auto-generated method stub
-
-		dataSource = SessionFactoryUtils.getDataSource(getSession()
-				.getSessionFactory());
-		List<SqlParameter> paramsInput = new ArrayList<SqlParameter>();
-		paramsInput.add(new SqlParameter(Constants.PS_PROSPECTO, OracleTypes.NVARCHAR));
-		paramsInput.add(new SqlParameter(Constants.PS_ATENCION, OracleTypes.INTEGER));
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String,Object> inputs = null;
+		Map<String,Object> results = null;
+		List<Carrera> lista = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_PROSPECTO, OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_ATENCION, OracleTypes.INTEGER));
+			
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
+			
+			execSp = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPROSPECTO, paramsInput,paramsOutput);
+			inputs = new HashMap<String,Object>();
+			inputs.put(Constants.PS_PROSPECTO,psProspecto);
+			inputs.put(Constants.PS_ATENCION,psAtencion);
+			results = execSp.executeSp(inputs);
+			lista = ExecuteProcedure.retornaLista(results);
+		} catch (Exception e) {
+			throw e;
+		}
 		
-		List<SqlOutParameter> paramsOutput = new ArrayList<SqlOutParameter>();
-		paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
 		
-		ExecuteProcedure sproc = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPROSPECTO, paramsInput,paramsOutput);
-		Map inputs = new HashMap();
-		inputs.put(Constants.PS_PROSPECTO,psProspecto);
-		inputs.put(Constants.PS_ATENCION,psAtencion);
-		Map results = sproc.executeSp(inputs);
-		
-		return results;
+		return lista;
  
 	}
 

@@ -1,11 +1,14 @@
 package com.visa.dao.jdbc;
 
+import java.util.List;
 import java.util.Map;
+
+import com.visa.domain.Carrera;
 
 public interface VisaJdbcTemplateDAO {
 
 	
-	Map obtenerCarrerasPostgrado(String psAlumno);
-	Map obtenerCarrerasPostulante(String psPostulante);
-	Map obtenerCarrerasProspecto(String psProspecto, Integer psAtencion);
+	List<Carrera> obtenerCarrerasPostgrado(String psAlumno) throws Exception;
+	List<Carrera> obtenerCarrerasPostulante(String psPostulante) throws Exception;
+	List<Carrera> obtenerCarrerasProspecto(String psProspecto, Integer psAtencion) throws Exception;
 }

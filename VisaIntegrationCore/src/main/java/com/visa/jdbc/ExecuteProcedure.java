@@ -38,29 +38,8 @@ public class ExecuteProcedure extends StoredProcedure {
 	public Map executeSp(Map inputs) {
 		return execute(inputs);
 	}
-
-	@SuppressWarnings({ "unused", "rawtypes" })
-	public static void printMap(Map map) {
-
-		Iterator it = map.entrySet().iterator();
-
-		while (it.hasNext()) {
-
-			Map.Entry entry = (Map.Entry) it.next();
-
-			String key = (String) entry.getKey();
-
-			List val = (List) entry.getValue();
-
-			for (Object object : val) {
-				Carrera carrera = (Carrera) object;
-				System.out.println(carrera.getCodigo());
-				System.out.println(carrera.getNombre());
-			}
-
-		}
-
-	}
+	
+	
 	
 	public static List retornaLista(Map map) {
 
