@@ -1,14 +1,13 @@
 package com.visa.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.visa.VisaCoreTest;
-import com.visa.jdbc.ExecuteProcedure;
+import com.visa.domain.Carrera;
 
 public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 
@@ -17,25 +16,45 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 
 	@Test
 	public void obtenerCarrerasPostgradoTest() {
-		Map results = new HashMap();
-		results = visaJdbcTemplateDAO.obtenerCarrerasPostgrado("CL20031506");
-		ExecuteProcedure.printMap(results);
+		List<Carrera> carreras;
+		try {
+			carreras = visaJdbcTemplateDAO.obtenerCarrerasPostgrado("CL20031506");
+			Assert.assertNotNull(carreras);
+			Assert.assertTrue(carreras.size() != 0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 	@Test
 	public void obtenerCarrerasPostulanteTest() {
-		Map results = new HashMap();
-		results = visaJdbcTemplateDAO.obtenerCarrerasPostulante("PA20032038");
-		ExecuteProcedure.printMap(results);
+		List<Carrera> carreras;
+		try {
+			carreras = visaJdbcTemplateDAO.obtenerCarrerasPostulante("PA20032038");
+			Assert.assertNotNull(carreras);
+			Assert.assertTrue(carreras.size() != 0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 	@Test
 	public void obtenerCarrerasProspectoTest() {
-		Map results = new HashMap();
-		results = visaJdbcTemplateDAO.obtenerCarrerasProspecto("0001174", new Integer(1));
-		ExecuteProcedure.printMap(results);
-		List lista = ExecuteProcedure.retornaLista(results);
-		System.out.println(lista.size());
+		
+		List<Carrera> carreras;
+		try {
+			carreras = visaJdbcTemplateDAO.obtenerCarrerasProspecto("0001174", new Integer(1));
+			Assert.assertNotNull(carreras);
+			Assert.assertTrue(carreras.size() != 0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}				
+		
 
 	}
 	
