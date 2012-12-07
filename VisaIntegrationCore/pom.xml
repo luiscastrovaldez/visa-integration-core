@@ -23,8 +23,13 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>src/main/java/com/visa/resource</directory>
-				<targetPath>com/visa/resource</targetPath>				
+				<directory>src/main/java/com/visa/resources</directory>
+				<targetPath>com/visa/resources</targetPath>	
+					
+			</resource>
+			<resource>
+				<directory>src/main/java/com/visa/domain/hbm</directory>
+				<targetPath>com/visa/domain/hbm</targetPath>					
 			</resource>
 			
 		</resources>

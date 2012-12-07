@@ -6,7 +6,7 @@
     <session-factory name="core-sf">
     
     
-     <mapping resource="com/visa/domain/LogTransaction.hbm.xml" />
+     <mapping resource="com/visa/domain/hbm/LogTransaction.hbm.xml" />
     
 </session-factory>
 </hibernate-configuration>
