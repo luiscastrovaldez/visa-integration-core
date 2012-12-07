@@ -16,10 +16,8 @@ public class Concepto implements RowMapper<Object> {
 	private String monto;
 	private String recibo;
 
-		
-	public Concepto(String cuota, String codigoServicio, String nombreServicio,
-			String fechaVencimiento, String periodoacademico,
-			String periodopago, String monto, String recibo) {
+	public Concepto(String cuota, String codigoServicio, String nombreServicio, String fechaVencimiento, String periodoacademico, String periodopago,
+			String monto, String recibo) {
 		super();
 		this.cuota = cuota;
 		this.codigoServicio = codigoServicio;

@@ -9,14 +9,16 @@ public class Carrera implements RowMapper<Object> {
 
 	private String codigo;
 	private String nombre;
-	public Carrera(){
-		
+
+	public Carrera() {
+
 	}
-	private Carrera(String codigo, String nombre){
+
+	private Carrera(String codigo, String nombre) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 	}
-	
+
 	public String getCodigo() {
 		return codigo;
 	}

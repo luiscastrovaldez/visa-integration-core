@@ -13,9 +13,9 @@ public class VisaIntegrationImpl implements VisaIntegration {
 
 	@Autowired
 	LogTransactionDAO logTransactionDAO;
-	
+
 	public LogTransaction findById(Serializable id) {
 		return logTransactionDAO.findById(id);
 	}
-	
+
 }
