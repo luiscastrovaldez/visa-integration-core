@@ -1,11 +1,13 @@
 package com.visa.dao.jdbc;
 
-import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+
+import oracle.jdbc.OracleTypes;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +15,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.visa.commons.Constants;
+import com.visa.domain.Carrera;
+import com.visa.jdbc.ExecuteProcedure;
 
 @Repository
 public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements
 		VisaJdbcTemplateDAO {
 
-	@Autowired
-	public VisaJdbcTemplateDAOImpl(SessionFactory sessionFactory) {
-		setSessionFactory(sessionFactory);
-	}
-
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private DataSource dataSource;
 
+	@Autowired
+	public VisaJdbcTemplateDAOImpl(SessionFactory sessionFactory) {
+		setSessionFactory(sessionFactory);
+	}
 
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -40,43 +42,66 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements
 				dataSource);
 	}
 
-	private static void printMap(Map results) {
-		for (Iterator it = results.entrySet().iterator(); it.hasNext();) {
-			System.out.println(it.next());
-		}
-	}
-
-	private class ExecuteProcedure extends StoredProcedure {
-
-		public ExecuteProcedure(DataSource ds) {
-			setDataSource(ds);
-			// setFunction(true);
-			setSql(Constants.PROCEDURE);
-			declareParameter(new SqlParameter("p_account_number", Types.VARCHAR));
-			// declareParameter(new SqlOutParameter("date", Types.DATE));
-			compile();
-		}
-
-		public Map execute() {
-			// the 'sysdate' sproc has no input parameters, so an empty Map is
-			// supplied...
-
-			Map inputs = new HashMap();
-			inputs.put("p_account_number", "09080");
-
-			// return execute(new HashMap());
-			return execute(inputs);
-		}
-	}
-
-	public void callStoreProcedure() {
+	public Map obtenerCarrerasPostgrado(String psAlumno) {
 		// TODO Auto-generated method stub
-		
-		this.dataSource = SessionFactoryUtils.getDataSource(getSession()
+
+		dataSource = SessionFactoryUtils.getDataSource(getSession()
 				.getSessionFactory());
-		ExecuteProcedure sproc = new ExecuteProcedure(dataSource);
-		Map results = sproc.execute();
+		List<SqlParameter> paramsInput = new ArrayList<SqlParameter>();
+		paramsInput.add(new SqlParameter(Constants.PS_ALUMNO, OracleTypes.NVARCHAR));
 		
+		List<SqlOutParameter> paramsOutput = new ArrayList<SqlOutParameter>();
+		paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
+		
+		ExecuteProcedure sproc = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPOSTGRADO, paramsInput,paramsOutput);
+		Map inputs = new HashMap();
+		inputs.put(Constants.PS_ALUMNO,psAlumno);
+		Map results = sproc.executeSp(inputs);
+		
+		return results;
+ 
+	}
+	
+	public Map obtenerCarrerasPostulante(String psPostulante) {
+		// TODO Auto-generated method stub
+
+		dataSource = SessionFactoryUtils.getDataSource(getSession()
+				.getSessionFactory());
+		List<SqlParameter> paramsInput = new ArrayList<SqlParameter>();
+		paramsInput.add(new SqlParameter(Constants.PS_POSTULANTE, OracleTypes.NVARCHAR));
+		
+		List<SqlOutParameter> paramsOutput = new ArrayList<SqlOutParameter>();
+		paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
+		
+		ExecuteProcedure sproc = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPOSTULANTE, paramsInput,paramsOutput);
+		Map inputs = new HashMap();
+		inputs.put(Constants.PS_POSTULANTE,psPostulante);
+		Map results = sproc.executeSp(inputs);
+		
+		return results;
+ 
+	}
+	
+	public Map obtenerCarrerasProspecto(String psProspecto, Integer psAtencion) {
+		// TODO Auto-generated method stub
+
+		dataSource = SessionFactoryUtils.getDataSource(getSession()
+				.getSessionFactory());
+		List<SqlParameter> paramsInput = new ArrayList<SqlParameter>();
+		paramsInput.add(new SqlParameter(Constants.PS_PROSPECTO, OracleTypes.NVARCHAR));
+		paramsInput.add(new SqlParameter(Constants.PS_ATENCION, OracleTypes.INTEGER));
+		
+		List<SqlOutParameter> paramsOutput = new ArrayList<SqlOutParameter>();
+		paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR,new Carrera()));
+		
+		ExecuteProcedure sproc = new ExecuteProcedure(dataSource,Constants.SP_OBTENERCARRERASPROSPECTO, paramsInput,paramsOutput);
+		Map inputs = new HashMap();
+		inputs.put(Constants.PS_PROSPECTO,psProspecto);
+		inputs.put(Constants.PS_ATENCION,psAtencion);
+		Map results = sproc.executeSp(inputs);
+		
+		return results;
+ 
 	}
 
 }

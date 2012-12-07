@@ -1,6 +1,11 @@
 package com.visa.domain;
 
-public class Concepto {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+public class Concepto implements RowMapper<Object> {
 
 	private String cuota;
 	private String codigoServicio;
@@ -10,6 +15,21 @@ public class Concepto {
 	private String periodopago;
 	private String monto;
 	private String recibo;
+
+		
+	public Concepto(String cuota, String codigoServicio, String nombreServicio,
+			String fechaVencimiento, String periodoacademico,
+			String periodopago, String monto, String recibo) {
+		super();
+		this.cuota = cuota;
+		this.codigoServicio = codigoServicio;
+		this.nombreServicio = nombreServicio;
+		this.fechaVencimiento = fechaVencimiento;
+		this.periodoacademico = periodoacademico;
+		this.periodopago = periodopago;
+		this.monto = monto;
+		this.recibo = recibo;
+	}
 
 	public String getCuota() {
 		return cuota;
@@ -73,6 +93,12 @@ public class Concepto {
 
 	public void setRecibo(String recibo) {
 		this.recibo = recibo;
+	}
+
+	@Override
+	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
