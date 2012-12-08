@@ -9,6 +9,10 @@ public final class Constants {
 	public static String SPS_LISTARCUOTASPOSTULANTE = "PKG_PAGOVISA.SPS_LISTARCUOTASPOSTULANTE";
 	public static String SPS_LISTARCUOTASPROSPECTO = "PKG_PAGOVISA.SPS_LISTARCUOTASPROSPECTO";
 	public static String SF_VERIFICAUSUARIOEXISTE = "Pkg_Sso.SF_VERIFICAUSUARIOEXISTE";
+	public static String SF_VERIFICARPOSTULANTEEXISTE = "Pkg_Sso.SF_VERIFICARPOSTULANTEEXISTE";
+	public static String SF_VERIFICARPROSPECTOEXISTE = "Pkg_Sso.SF_VERIFICARPROSPECTOEXISTE";
+	
+	
 	
 
 	public static String PS_ALUMNO = "PS_ALUMNO";
@@ -21,10 +25,21 @@ public final class Constants {
 	public static String PS_DOMINIO = "PS_DOMINIO";
 
 	public static String FLAG_USUARIO = "FLAG_USUARIO";
+	public static String RETURN_VALUE = "RETURN_VALUE";
+	public static String PS_CODIGO = "PS_CODIGO";
+	public static String PS_ID = "PS_ID";
+	public static String PS_EMAIL = "PS_EMAIL";
+	
+	
+	
+	
 	
 	public static String P_CURSOR = "pCursor";
 	
 	public static String DOMINIO = "uwiener.edu.pe";
+	
+	public static int INTINSTITUCION = 51;    // Universidad Norbert Wiener
+	public static int PERFIL_ALUMNO = 2; 
 	
 
 }

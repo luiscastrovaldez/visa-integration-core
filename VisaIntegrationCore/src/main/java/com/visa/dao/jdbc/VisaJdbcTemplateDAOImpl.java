@@ -58,7 +58,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsOutput = new ArrayList<SqlOutParameter>();
       paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
 
-      execSp = new ExecuteProcedure(dataSource, Constants.SP_OBTENERCARRERASPOSTGRADO, paramsInput, paramsOutput, Boolean.FALSE);
+      execSp = new ExecuteProcedure(dataSource, Constants.SP_OBTENERCARRERASPOSTGRADO, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
       inputs.put(Constants.PS_ALUMNO, psAlumno);
       results = execSp.executeSp(inputs);
@@ -87,7 +87,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsOutput = new ArrayList<SqlOutParameter>();
       paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
 
-      execSp = new ExecuteProcedure(dataSource, Constants.SP_OBTENERCARRERASPOSTULANTE, paramsInput, paramsOutput, Boolean.FALSE);
+      execSp = new ExecuteProcedure(dataSource, Constants.SP_OBTENERCARRERASPOSTULANTE, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
       inputs.put(Constants.PS_POSTULANTE, psPostulante);
       results = execSp.executeSp(inputs);
@@ -118,7 +118,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsOutput = new ArrayList<SqlOutParameter>();
       paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
 
-      execSp = new ExecuteProcedure(dataSource, Constants.SP_OBTENERCARRERASPROSPECTO, paramsInput, paramsOutput, Boolean.FALSE);
+      execSp = new ExecuteProcedure(dataSource, Constants.SP_OBTENERCARRERASPROSPECTO, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
       inputs.put(Constants.PS_PROSPECTO, psProspecto);
       inputs.put(Constants.PS_ATENCION, psAtencion);
@@ -149,7 +149,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsOutput = new ArrayList<SqlOutParameter>();
       paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
 
-      execSp = new ExecuteProcedure(dataSource, Constants.SPS_CUOTASACTUALES, paramsInput, paramsOutput, Boolean.FALSE);
+      execSp = new ExecuteProcedure(dataSource, Constants.SPS_CUOTASACTUALES, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
       inputs.put(Constants.PS_ALUMNO, codigoAlumno);
       inputs.put(Constants.PS_CARRERA, codigoCarrera);
@@ -180,7 +180,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsOutput = new ArrayList<SqlOutParameter>();
       paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
 
-      execSp = new ExecuteProcedure(dataSource, Constants.SPS_LISTARCUOTASPOSTULANTE, paramsInput, paramsOutput, Boolean.FALSE);
+      execSp = new ExecuteProcedure(dataSource, Constants.SPS_LISTARCUOTASPOSTULANTE, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
       inputs.put(Constants.PS_POSTULANTE, psPostulante);
       results = execSp.executeSp(inputs);
@@ -211,7 +211,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsOutput = new ArrayList<SqlOutParameter>();
       paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
 
-      execSp = new ExecuteProcedure(dataSource, Constants.SPS_LISTARCUOTASPROSPECTO, paramsInput, paramsOutput, Boolean.FALSE);
+      execSp = new ExecuteProcedure(dataSource, Constants.SPS_LISTARCUOTASPROSPECTO, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
       inputs.put(Constants.PS_PROSPECTO, psProspecto);
       inputs.put(Constants.PS_ATENCION, psAtencion);
@@ -242,7 +242,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsInput.add(new SqlParameter(Constants.PS_DOMINIO, OracleTypes.NVARCHAR));
 
       paramsOutput = new ArrayList<SqlOutParameter>();
-      paramsOutput.add(new SqlOutParameter(Constants.FLAG_USUARIO, OracleTypes.INTEGER));
+      paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
 
       execSp = new ExecuteProcedure(dataSource, Constants.SF_VERIFICAUSUARIOEXISTE, paramsInput, paramsOutput, Boolean.TRUE);
       inputs = new HashMap<String, Object>();
@@ -262,5 +262,92 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
     return flagUsuario;
 
   }
+  
+	@SuppressWarnings("unchecked")
+	public Integer verificarPostulanteExiste(String psCodigo, String psId)
+			throws Exception {
+		// TODO Auto-generated method stub
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Integer flagUsuario = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_CODIGO,
+					OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_ID,
+					OracleTypes.NVARCHAR));
+
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE,
+					OracleTypes.INTEGER));
+
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SF_VERIFICARPOSTULANTEEXISTE, paramsInput,
+					paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PS_CODIGO, psCodigo);
+			inputs.put(Constants.PS_ID, psId);
+
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				flagUsuario = (Integer) retorno;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return flagUsuario;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Integer verificarProspectoExiste(String psCodigo, String psId, Integer psAtencion)
+			throws Exception {
+		// TODO Auto-generated method stub
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Integer flagUsuario = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_EMAIL,
+					OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_ID,
+					OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_ATENCION,
+					OracleTypes.INTEGER));
+
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE,
+					OracleTypes.INTEGER));
+
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SF_VERIFICARPROSPECTOEXISTE, paramsInput,
+					paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PS_EMAIL, psCodigo);
+			inputs.put(Constants.PS_ID, psId);
+			inputs.put(Constants.PS_ATENCION, psAtencion);
+
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				flagUsuario = (Integer) retorno;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return flagUsuario;
+
+	}
 
 }

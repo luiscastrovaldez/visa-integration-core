@@ -120,5 +120,37 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
     }
 
   }
+  
+	@Test
+	public void verificarPostulanteExisteTest() {
+
+		Integer flag;
+		try {
+			flag = visaJdbcTemplateDAO.verificarPostulanteExiste("1", "1");
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);
+			Assert.assertTrue(flag == 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void verificarProspectoExiste() {
+
+		Integer flag;
+		try {
+			flag = visaJdbcTemplateDAO.verificarProspectoExiste("1", "1",Integer.valueOf(1));
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);
+			Assert.assertTrue(flag == 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
 
 }
