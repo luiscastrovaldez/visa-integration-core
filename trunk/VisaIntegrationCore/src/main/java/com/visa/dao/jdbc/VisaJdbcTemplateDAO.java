@@ -20,4 +20,8 @@ public interface VisaJdbcTemplateDAO {
   List<Concepto> obtenerListarCuotasProspecto(String psProspecto, Integer psAtencion) throws Exception;
 
   Integer verificaUsuarioExiste(String nombreUsuario, String usuarioClave) throws Exception;
+  
+  Integer verificarPostulanteExiste(String psCodigo, String psId) throws Exception;
+  
+  Integer verificarProspectoExiste(String psCodigo, String psId, Integer psAtencion) throws Exception;
 }

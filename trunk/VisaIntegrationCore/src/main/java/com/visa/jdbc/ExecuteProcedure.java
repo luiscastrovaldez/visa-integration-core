@@ -19,6 +19,11 @@ public class ExecuteProcedure extends StoredProcedure {
 			boolean isFunction) {
 
 		setDataSource(ds);
+		for (Iterator<SqlOutParameter> iterator = paramsOutput.iterator(); iterator
+				.hasNext();) {
+			SqlOutParameter sqlOutParameter = iterator.next();
+			declareParameter(sqlOutParameter);
+		}
 		setFunction(isFunction);
 		setSql(storeProcedureName);
 		for (Iterator<SqlParameter> iterator = paramsInput.iterator(); iterator
@@ -27,6 +32,20 @@ public class ExecuteProcedure extends StoredProcedure {
 			declareParameter(sqlParameter);
 		}
 
+		compile();
+	}
+	
+	public ExecuteProcedure(DataSource ds, String storeProcedureName,
+			List<SqlParameter> paramsInput, List<SqlOutParameter> paramsOutput) {
+
+		setDataSource(ds);		
+		setFunction(false);
+		setSql(storeProcedureName);
+		for (Iterator<SqlParameter> iterator = paramsInput.iterator(); iterator
+				.hasNext();) {
+			SqlParameter sqlParameter = iterator.next();
+			declareParameter(sqlParameter);
+		}
 		for (Iterator<SqlOutParameter> iterator = paramsOutput.iterator(); iterator
 				.hasNext();) {
 			SqlOutParameter sqlOutParameter = iterator.next();

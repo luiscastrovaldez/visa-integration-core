@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.visa.VisaCoreTest;
 import com.visa.domain.Carrera;
 
 public class VisaIntegrationImplTest extends VisaCoreTest {
@@ -25,4 +26,19 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
       Assert.fail();
     }
   }
+  
+	@Test
+	public void verificaUsuarioExisteTest() {
+		Integer flag;
+		try {
+			flag = visaIntegration.verificaUsuarioExiste("a2012900222",	"bif87933");
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);
+			Assert.assertTrue(flag > 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
 }
