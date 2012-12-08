@@ -106,7 +106,26 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 			e.printStackTrace();
 		}				
 		
-
+		
 	}
+	
+	@Test
+	public void verificaUsuarioExisteTest() {
+		
+		Integer flag;
+		try {
+			flag = visaJdbcTemplateDAO.verificaUsuarioExiste("a2012900222","bif87933");
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);
+			Assert.assertTrue(flag > 0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}				
+		
+		
+	}
+	
+	
 	
 }
