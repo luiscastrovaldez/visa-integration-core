@@ -1,0 +1,28 @@
+package com.visa.services;
+
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.visa.domain.Carrera;
+
+public class VisaIntegrationImplTest extends VisaCoreTest {
+
+  @Autowired
+  VisaIntegration visaIntegration;
+
+  @Test
+  public void findLogTransactionByIdTest() {
+    List<Carrera> carreras;
+    try {
+      carreras = visaIntegration.obtenerCarrerasPostgrado("CL20031506");
+      Assert.assertNotNull(carreras);
+      Assert.assertTrue(carreras.size() != 0);
+    } catch (Exception e) {
+      e.printStackTrace();
+      Assert.fail();
+    }
+  }
+}
