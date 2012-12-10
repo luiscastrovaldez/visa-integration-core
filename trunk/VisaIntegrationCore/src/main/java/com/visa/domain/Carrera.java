@@ -37,7 +37,6 @@ public class Carrera implements RowMapper<Object> {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
 		Carrera carrera = new Carrera(rs.getString(1), rs.getString(2));
 		return carrera;
 	}

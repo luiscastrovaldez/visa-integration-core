@@ -44,7 +44,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public List<Carrera> obtenerCarrerasPostgrado(String psAlumno) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -73,7 +72,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public List<Carrera> obtenerCarrerasPostulante(String psPostulante) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -103,7 +101,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public List<Carrera> obtenerCarrerasProspecto(String psProspecto, Integer psAtencion) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -134,7 +131,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public List<Concepto> obtenerCuotasActuales(String codigoAlumno, String codigoCarrera) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -147,7 +143,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsInput.add(new SqlParameter(Constants.PS_CARRERA, OracleTypes.NVARCHAR));
 
       paramsOutput = new ArrayList<SqlOutParameter>();
-      paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
+      paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Concepto()));
 
       execSp = new ExecuteProcedure(dataSource, Constants.SPS_CUOTASACTUALES, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
@@ -166,7 +162,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public List<Concepto> obtenerListarCuotasPostulante(String psPostulante) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -178,7 +173,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsInput.add(new SqlParameter(Constants.PS_POSTULANTE, OracleTypes.NVARCHAR));
 
       paramsOutput = new ArrayList<SqlOutParameter>();
-      paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
+      paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Concepto()));
 
       execSp = new ExecuteProcedure(dataSource, Constants.SPS_LISTARCUOTASPOSTULANTE, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
@@ -196,7 +191,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public List<Concepto> obtenerListarCuotasProspecto(String psProspecto, Integer psAtencion) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -209,7 +203,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       paramsInput.add(new SqlParameter(Constants.PS_ATENCION, OracleTypes.INTEGER));
 
       paramsOutput = new ArrayList<SqlOutParameter>();
-      paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Carrera()));
+      paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new Concepto()));
 
       execSp = new ExecuteProcedure(dataSource, Constants.SPS_LISTARCUOTASPROSPECTO, paramsInput, paramsOutput);
       inputs = new HashMap<String, Object>();
@@ -228,7 +222,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
   @SuppressWarnings("unchecked")
   public Integer verificaUsuarioExiste(String nombreUsuario, String usuarioClave) throws Exception {
-    // TODO Auto-generated method stub
     List<SqlParameter> paramsInput = null;
     List<SqlOutParameter> paramsOutput = null;
     Map<String, Object> inputs = null;
@@ -266,7 +259,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 	@SuppressWarnings("unchecked")
 	public Integer verificarPostulanteExiste(String psCodigo, String psId)
 			throws Exception {
-		// TODO Auto-generated method stub
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
 		Map<String, Object> inputs = null;
@@ -308,7 +300,6 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 	@SuppressWarnings("unchecked")
 	public Integer verificarProspectoExiste(String psCodigo, String psId, Integer psAtencion)
 			throws Exception {
-		// TODO Auto-generated method stub
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
 		Map<String, Object> inputs = null;
