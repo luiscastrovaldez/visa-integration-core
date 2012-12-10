@@ -1,5 +1,6 @@
 package com.visa.dao.jdbc;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import oracle.jdbc.OracleTypes;
+import oracle.sql.TIMESTAMP;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -257,7 +259,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
   }
   
 	@SuppressWarnings("unchecked")
-	public Integer verificarPostulanteExiste(String psCodigo, String psId)
+	public Integer verificaPostulanteExiste(String psCodigo, String psId)
 			throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
@@ -298,7 +300,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Integer verificarProspectoExiste(String psCodigo, String psId, Integer psAtencion)
+	public Integer verificaProspectoExiste(String psCodigo, String psId, Integer psAtencion)
 			throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
@@ -340,5 +342,205 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		return flagUsuario;
 
 	}
+	
+	
+    @SuppressWarnings("unchecked")
+    public Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion) throws Exception {
+      List<SqlParameter> paramsInput = null;
+      List<SqlOutParameter> paramsOutput = null;
+      Map<String, Object> inputs = null;
+      Map<String, Object> results = null;
+      Object retorno;
+      Integer idTran = null;
+      try {
+        dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+        paramsInput = new ArrayList<SqlParameter>();
+        paramsInput.add(new SqlParameter(Constants.PS_CARRERA, OracleTypes.NVARCHAR));
+        paramsInput.add(new SqlParameter(Constants.PS_CLIENTE, OracleTypes.NVARCHAR));
+        paramsInput.add(new SqlParameter(Constants.PN_MONTO, OracleTypes.NVARCHAR));
+        paramsInput.add(new SqlParameter(Constants.PS_PERIODOAC, OracleTypes.NVARCHAR));
+        paramsInput.add(new SqlParameter(Constants.PN_ATENCION, OracleTypes.NVARCHAR));
+
+        paramsOutput = new ArrayList<SqlOutParameter>();
+        paramsOutput.add(new SqlOutParameter(Constants.PN_IDTRAN, OracleTypes.INTEGER));
+
+        execSp = new ExecuteProcedure(dataSource, Constants.SPI_REGISTRATRANVISA, paramsInput, paramsOutput);
+        inputs = new HashMap<String, Object>();
+        inputs.put(Constants.PS_CARRERA, psCarrera);
+        inputs.put(Constants.PS_CLIENTE, psCliente);
+        inputs.put(Constants.PN_MONTO, psMonto);
+        inputs.put(Constants.PS_PERIODOAC, periodoAcademico);
+        inputs.put(Constants.PN_ATENCION, psAtencion);
+        results = execSp.executeSp(inputs);
+        retorno = ExecuteProcedure.retornaValue(results);
+        
+        if (retorno != null) {
+        	idTran = (Integer) retorno;
+		}
+        
+        
+      } catch (Exception e) {
+        throw e;
+      }
+
+      return idTran;
+
+    }
+    
+  
+    
+	@SuppressWarnings("unchecked")
+	public void registraTransaccionVisaDetalle(Integer idTran,
+			String psServicio, int cuota, BigDecimal monto, String periodoPago)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Object retorno;
+
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,
+					OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PS_SERVICIO,
+					OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PN_CUOTA,
+					OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PN_MONTO,
+					OracleTypes.DECIMAL));
+			paramsInput.add(new SqlParameter(Constants.PS_PERIODOPAGO,
+					OracleTypes.NVARCHAR));
+
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPI_REGISTRATRANVISADET, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PN_IDTRAN, idTran);
+			inputs.put(Constants.PS_SERVICIO, psServicio);
+			inputs.put(Constants.PN_CUOTA, cuota);
+			inputs.put(Constants.PN_MONTO, monto);
+			inputs.put(Constants.PS_PERIODOPAGO, periodoPago);
+			results = execSp.executeSp(inputs);
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
+	@SuppressWarnings("unchecked")
+    public BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception {
+      List<SqlParameter> paramsInput = null;
+      List<SqlOutParameter> paramsOutput = null;
+      Map<String, Object> inputs = null;
+      Map<String, Object> results = null;
+      Object retorno;
+      BigDecimal monto = null;
+      try {
+        dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+        paramsInput = new ArrayList<SqlParameter>();
+        paramsInput.add(new SqlParameter(Constants.PN_IDTRAN, OracleTypes.INTEGER));
+        
+
+        paramsOutput = new ArrayList<SqlOutParameter>();
+        paramsOutput.add(new SqlOutParameter(Constants.PN_MONTO, OracleTypes.DECIMAL));
+
+        execSp = new ExecuteProcedure(dataSource, Constants.SPS_OBTENERMONTOTRANVISA, paramsInput, paramsOutput);
+        inputs = new HashMap<String, Object>();
+        inputs.put(Constants.PN_IDTRAN, idTran);
+        
+        results = execSp.executeSp(inputs);
+        retorno = ExecuteProcedure.retornaValue(results);
+        
+        if (retorno != null) {
+        	monto = (BigDecimal) retorno;
+		}
+        
+        
+      } catch (Exception e) {
+        throw e;
+      }
+
+      return monto;
+
+    }
+    
+
+	 
+	@SuppressWarnings("unchecked")
+	public void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Object retorno;
+
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,
+					OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PS_ESTADO,
+					OracleTypes.NVARCHAR));
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPU_ACTUALIZARESTADOTRANVISA, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			 inputs.put(Constants.PN_IDTRAN, idTran);
+			 inputs.put(Constants.PS_ESTADO, estado);
+			results = execSp.executeSp(inputs);
+			retorno = ExecuteProcedure.retornaValue(results);
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
+	
+    
+	@SuppressWarnings("unchecked")
+	public void obtenerInformacionTransaccionVisa(Integer idTran)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		List<Carrera> lista = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,
+					OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PD_FECHATRAN,
+					OracleTypes.TIMESTAMP));
+
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR,
+					OracleTypes.CURSOR));
+
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPS_OBTENERINFOTRANVISA, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PN_IDTRAN, idTran);
+			inputs.put(Constants.PD_FECHATRAN, new TIMESTAMP());
+			results = execSp.executeSp(inputs);
+			lista = ExecuteProcedure.retornaLista(results);
+		} catch (Exception e) {
+			throw e;
+		}
+
+	
+
+	}
+	
 
 }
+

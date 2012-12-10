@@ -1,5 +1,6 @@
 package com.visa.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Assert;
@@ -110,7 +111,7 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 
     Integer flag;
     try {
-      flag = visaJdbcTemplateDAO.verificaUsuarioExiste("a2012900222", "bif87933");
+      flag = visaJdbcTemplateDAO.verificaUsuarioExiste("twqwqweest", "tqeqwest");
       System.out.println(" flag " + flag);
       Assert.assertNotNull(flag);
       Assert.assertTrue(flag > 0);
@@ -126,7 +127,7 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 
 		Integer flag;
 		try {
-			flag = visaJdbcTemplateDAO.verificarPostulanteExiste("1", "1");
+			flag = visaJdbcTemplateDAO.verificaPostulanteExiste("1", "1");
 			System.out.println(" flag " + flag);
 			Assert.assertNotNull(flag);
 			Assert.assertTrue(flag == 0);
@@ -138,19 +139,50 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 	}
 	
 	@Test
-	public void verificarProspectoExiste() {
+	public void verificarProspectoExisteTest() {
 
 		Integer flag;
 		try {
-			flag = visaJdbcTemplateDAO.verificarProspectoExiste("1", "1",Integer.valueOf(1));
+			flag = visaJdbcTemplateDAO.verificaProspectoExiste("1", "1",Integer.valueOf(1));
 			System.out.println(" flag " + flag);
-			Assert.assertNotNull(flag);
-			Assert.assertTrue(flag == 0);
+			Assert.assertNotNull(flag);			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
 
 	}
+	
+	
+	@Test
+	public void registraTransaccionVisaTest() {
+
+		Integer idTran;
+		try {
+			idTran = visaJdbcTemplateDAO.registraTransaccionVisa("001", "C2323", new BigDecimal(250), "2010", "1");
+			System.out.println(" flag " + idTran);
+			Assert.assertNotNull(idTran);
+			//12732
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void registraTransaccionVisaDetalleTest() {
+		
+		try {
+			visaJdbcTemplateDAO.registraTransaccionVisaDetalle(12732, "eee", 4, new BigDecimal(200), "2012");			
+			//12732
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	
 
 }
