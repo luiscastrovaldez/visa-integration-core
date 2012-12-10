@@ -181,7 +181,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       results = execSp.executeSp(inputs);
       lista = ExecuteProcedure.retornaLista(results);
 
-    } catch (Exception e) {
+    } catch ( Exception e) {
       throw e;
     }
 
