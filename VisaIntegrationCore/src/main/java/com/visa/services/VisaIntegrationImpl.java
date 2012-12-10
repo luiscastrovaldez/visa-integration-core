@@ -43,4 +43,15 @@ public class VisaIntegrationImpl implements VisaIntegration {
     return visaJdbcTemplateDAO.verificaUsuarioExiste(nombreUsuario, usuarioClave);
   }
 
+
+  public Integer verificarPostulanteExiste(String psCodigo, String psId) throws Exception {
+	  return visaJdbcTemplateDAO.verificarPostulanteExiste(psCodigo, psId);
+  }
+
+
+  public Integer verificarProspectoExiste(String psCodigo, String psId,
+			Integer psAtencion) throws Exception {
+		return visaJdbcTemplateDAO.verificarProspectoExiste(psCodigo, psId,psAtencion);
+  }
+
 }
