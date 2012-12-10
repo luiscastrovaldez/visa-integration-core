@@ -1,5 +1,6 @@
 package com.visa.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Assert;
@@ -35,6 +36,60 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 			System.out.println(" flag " + flag);
 			Assert.assertNotNull(flag);
 			Assert.assertTrue(flag > 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	
+	@Test
+	public void registraTransaccionVisaTest() {
+
+		Integer idTran;
+		try {
+			idTran = visaIntegration.registraTransaccionVisa("001", "C2323", new BigDecimal(250), "2010", "1");
+			System.out.println(" flag " + idTran);
+			Assert.assertNotNull(idTran);
+			//12735
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void registraTransaccionVisaDetalleTest() {
+		
+		try {
+			visaIntegration.registraTransaccionVisaDetalle(12735, "eee", 4, new BigDecimal(200), "2012");						
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void obtenerMontoTransaccionVisaTest() {
+		BigDecimal monto = null;
+		try {
+			monto = visaIntegration.obtenerMontoTransaccionVisa(12735);	
+			Assert.assertNotNull(monto);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void actualizarEstadoTranVisaTest() {
+
+		try {
+			visaIntegration.actualizarEstadoTranVisa(12735,"P");			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();

@@ -29,6 +29,7 @@ public final class Constants {
 	public static String PS_CLIENTE = "PS_CLIENTE";
 	public static String PS_PERIODOAC = "PS_PERIODOAC";
 	public static String PN_ATENCION = "PN_ATENCION";
+	public static String PS_ATENCION = "PS_ATENCION";
 	public static String PN_IDTRAN = "PN_IDTRAN";
 	public static String PS_SERVICIO = "PS_SERVICIO";
 	public static String PN_CUOTA = "PN_CUOTA";
@@ -37,11 +38,14 @@ public final class Constants {
 	public static String PS_ALUMNO = "PS_ALUMNO";
 	public static String PS_POSTULANTE = "PS_POSTULANTE";
 	public static String PS_CARRERA = "PS_CARRERA";	
-	public static String PS_PROSPECTO = "PS_PROSPECTO";
-	public static String PS_ATENCION = "PS_ATENCION";
+	public static String PS_PROSPECTO = "PS_PROSPECTO";	
 	public static String PS_USUARIO = "PS_USUARIO";
 	public static String PS_CLAVE = "PS_CLAVE";
 	public static String PS_DOMINIO = "PS_DOMINIO";
+	public static String PS_ESTADO = "PS_ESTADO";
+	public static String PD_FECHATRAN = "PD_FECHATRAN";
+	
+	
 
 	public static String FLAG_USUARIO = "FLAG_USUARIO";
 	public static String RETURN_VALUE = "RETURN_VALUE";

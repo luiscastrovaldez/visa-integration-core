@@ -1,5 +1,6 @@
 package com.visa.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,32 @@ public class VisaIntegrationImpl implements VisaIntegration {
   }
 
 
-  public Integer verificarPostulanteExiste(String psCodigo, String psId) throws Exception {
-	  return visaJdbcTemplateDAO.verificarPostulanteExiste(psCodigo, psId);
+  public Integer verificaPostulanteExiste(String psCodigo, String psId) throws Exception {
+	  return visaJdbcTemplateDAO.verificaPostulanteExiste(psCodigo, psId);
   }
 
 
-  public Integer verificarProspectoExiste(String psCodigo, String psId,
+  public Integer verificaProspectoExiste(String psCodigo, String psId,
 			Integer psAtencion) throws Exception {
-		return visaJdbcTemplateDAO.verificarProspectoExiste(psCodigo, psId,psAtencion);
+		return visaJdbcTemplateDAO.verificaProspectoExiste(psCodigo, psId,psAtencion);
   }
 
+  public Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion) throws Exception{
+	  return visaJdbcTemplateDAO.registraTransaccionVisa(psCarrera, psCliente, psMonto, periodoAcademico, psAtencion);
+  }
+  
+  public void registraTransaccionVisaDetalle(Integer idTran, String psServicio, int cuota, BigDecimal monto, String periodoPago) throws Exception {
+	  visaJdbcTemplateDAO.registraTransaccionVisaDetalle(idTran, psServicio, cuota, monto, periodoPago);
+  }
+
+  public BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception {	
+	return visaJdbcTemplateDAO.obtenerMontoTransaccionVisa(idTran);
+  }
+
+
+	public void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception {
+		visaJdbcTemplateDAO.actualizarEstadoTranVisa(idTran, estado);
+	}
+  
+  
 }

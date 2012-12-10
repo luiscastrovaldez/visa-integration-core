@@ -1,5 +1,6 @@
 package com.visa.dao.jdbc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.visa.domain.Carrera;
@@ -21,7 +22,15 @@ public interface VisaJdbcTemplateDAO {
 
   Integer verificaUsuarioExiste(String nombreUsuario, String usuarioClave) throws Exception;
   
-  Integer verificarPostulanteExiste(String psCodigo, String psId) throws Exception;
+  Integer verificaPostulanteExiste(String psCodigo, String psId) throws Exception;
   
-  Integer verificarProspectoExiste(String psCodigo, String psId, Integer psAtencion) throws Exception;
+  Integer verificaProspectoExiste(String psCodigo, String psId, Integer psAtencion) throws Exception;
+  
+  Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion) throws Exception;
+  
+  void registraTransaccionVisaDetalle(Integer idTran, String psServicio, int cuota, BigDecimal monto, String periodoPago) throws Exception; 
+  
+  BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception;
+  
+  void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception;
 }

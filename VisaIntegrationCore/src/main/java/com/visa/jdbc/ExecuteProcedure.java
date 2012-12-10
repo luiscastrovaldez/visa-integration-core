@@ -12,6 +12,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 
 import com.visa.domain.Carrera;
 
+
 public class ExecuteProcedure extends StoredProcedure {
 
 	public ExecuteProcedure(DataSource ds, String storeProcedureName,
@@ -41,6 +42,7 @@ public class ExecuteProcedure extends StoredProcedure {
 		setDataSource(ds);		
 		setFunction(false);
 		setSql(storeProcedureName);
+		
 		for (Iterator<SqlParameter> iterator = paramsInput.iterator(); iterator
 				.hasNext();) {
 			SqlParameter sqlParameter = iterator.next();

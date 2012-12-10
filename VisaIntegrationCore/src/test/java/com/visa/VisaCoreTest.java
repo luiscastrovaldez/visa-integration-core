@@ -14,7 +14,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @ContextConfiguration(locations = { "classpath:com/visa/resources/applicationContext-hibernate.xml" })
 @TestExecutionListeners( { DependencyInjectionTestExecutionListener.class,
     DirtiesContextTestExecutionListener.class })
-@TransactionConfiguration(defaultRollback = true)
+@TransactionConfiguration(defaultRollback = false)
 public class VisaCoreTest extends
     AbstractTransactionalJUnit4SpringContextTests {
 
