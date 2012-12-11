@@ -26,9 +26,8 @@ public interface VisaIntegration {
   
   Integer verificaProspectoExiste(String psCodigo, String psId, Integer psAtencion) throws Exception;
   
-  Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion) throws Exception;
-  
-  void registraTransaccionVisaDetalle(Integer idTran, String psServicio, int cuota, BigDecimal monto, String periodoPago) throws Exception;
+  Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion,List<Concepto> conceptos) throws Exception;
+    
   
   BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception;
   
