@@ -1,6 +1,7 @@
 package com.visa.services;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +56,23 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		return visaJdbcTemplateDAO.verificaProspectoExiste(psCodigo, psId,psAtencion);
   }
 
-  public Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion) throws Exception{
-	  return visaJdbcTemplateDAO.registraTransaccionVisa(psCarrera, psCliente, psMonto, periodoAcademico, psAtencion);
-  }
+	public Integer registraTransaccionVisa(String psCarrera, String psCliente,
+			BigDecimal psMonto, String periodoAcademico, String psAtencion,
+			List<Concepto> conceptos) throws Exception {
+		Integer idTran = visaJdbcTemplateDAO.registraTransaccionVisa(psCarrera,
+				psCliente, psMonto, periodoAcademico, psAtencion);
+		for (Iterator<Concepto> iterator = conceptos.iterator(); iterator.hasNext();) {
+			Concepto concepto = (Concepto) iterator.next();
+			visaJdbcTemplateDAO.registraTransaccionVisaDetalle(idTran, concepto
+					.getCodigoServicio(),
+					Integer.parseInt(concepto.getCuota()), new BigDecimal(
+							concepto.getMonto()), concepto.getPeriodopago());
+		}
+		return idTran;
+
+	}
   
-  public void registraTransaccionVisaDetalle(Integer idTran, String psServicio, int cuota, BigDecimal monto, String periodoPago) throws Exception {
-	  visaJdbcTemplateDAO.registraTransaccionVisaDetalle(idTran, psServicio, cuota, monto, periodoPago);
-  }
+ 
 
   public BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception {	
 	return visaJdbcTemplateDAO.obtenerMontoTransaccionVisa(idTran);

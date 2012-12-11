@@ -21,7 +21,7 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
   public void obtenerCarrerasPostgradoTest() {
     List<Carrera> carreras;
     try {
-      carreras = visaJdbcTemplateDAO.obtenerCarrerasPostgrado("CL20031506");
+      carreras = visaJdbcTemplateDAO.obtenerCarrerasPostgrado("a2012900203");
       Assert.assertNotNull(carreras);
       Assert.assertTrue(carreras.size() != 0);
     } catch (Exception e) {

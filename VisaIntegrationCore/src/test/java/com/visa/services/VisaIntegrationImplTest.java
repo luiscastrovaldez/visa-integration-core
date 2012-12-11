@@ -49,7 +49,7 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 
 		Integer idTran;
 		try {
-			idTran = visaIntegration.registraTransaccionVisa("001", "C2323", new BigDecimal(250), "2010", "1");
+			idTran = visaIntegration.registraTransaccionVisa("001", "C2323", new BigDecimal(250), "2010", "1",null);
 			System.out.println(" flag " + idTran);
 			Assert.assertNotNull(idTran);
 			//12735
@@ -60,17 +60,7 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 
 	}
 	
-	@Test
-	public void registraTransaccionVisaDetalleTest() {
-		
-		try {
-			visaIntegration.registraTransaccionVisaDetalle(12735, "eee", 4, new BigDecimal(200), "2012");						
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-
-	}
+	
 	
 	@Test
 	public void obtenerMontoTransaccionVisaTest() {
