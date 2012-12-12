@@ -414,6 +414,8 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			paramsInput.add(new SqlParameter(Constants.PS_PERIODOPAGO,
 					OracleTypes.NVARCHAR));
 
+			 paramsOutput = new ArrayList<SqlOutParameter>();
+			
 			execSp = new ExecuteProcedure(dataSource,
 					Constants.SPI_REGISTRATRANVISADET, paramsInput,
 					paramsOutput);
