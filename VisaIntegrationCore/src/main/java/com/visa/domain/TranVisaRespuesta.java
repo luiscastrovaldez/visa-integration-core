@@ -2,7 +2,7 @@ package com.visa.domain;
 
 public class TranVisaRespuesta {
 
-	private Integer idTran;
+	
 	private String estado;
 	private String alumno;
 	private String carrera;
@@ -27,13 +27,7 @@ public class TranVisaRespuesta {
 	private String descripcionCodigo;
 		
 
-	public Integer getIdTran() {
-		return idTran;
-	}
 
-	public void setIdTran(Integer idTran) {
-		this.idTran = idTran;
-	}
 
 	public String getEstado() {
 		return estado;

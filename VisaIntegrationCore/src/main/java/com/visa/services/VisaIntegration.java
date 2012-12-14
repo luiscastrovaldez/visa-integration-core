@@ -34,6 +34,6 @@ public interface VisaIntegration {
   
   void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception;
   
-  void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,String estado) throws Exception;
+  void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,Integer idTran, String estado) throws Exception;
 
 }
