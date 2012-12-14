@@ -46,7 +46,6 @@ public class VisaIntegrationImpl implements VisaIntegration {
     return visaJdbcTemplateDAO.verificaUsuarioExiste(nombreUsuario, usuarioClave);
   }
 
-
   public Integer verificaPostulanteExiste(String psCodigo, String psId) throws Exception {
 	  return visaJdbcTemplateDAO.verificaPostulanteExiste(psCodigo, psId);
   }
@@ -70,25 +69,19 @@ public class VisaIntegrationImpl implements VisaIntegration {
 							concepto.getMonto()), concepto.getPeriodopago());
 		}
 		return idTran;
-
 	}
-  
- 
 
   public BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception {	
 	return visaJdbcTemplateDAO.obtenerMontoTransaccionVisa(idTran);
   }
 
-
 	public void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception {
 		visaJdbcTemplateDAO.actualizarEstadoTranVisa(idTran, estado);
 	}
 	
-	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,Integer idTran, String estado) throws Exception {
+	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta, String estado) throws Exception {
 		visaJdbcTemplateDAO.registraTranVisaRespuesta(tranVisaRespuesta);
-		visaJdbcTemplateDAO.actualizarEstadoTranVisa(idTran, estado);
-
+		visaJdbcTemplateDAO.actualizarEstadoTranVisa(Integer.valueOf(tranVisaRespuesta.getnOrdenT()), estado);
 	}
-  
-  
+
 }

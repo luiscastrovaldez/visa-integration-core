@@ -22,18 +22,17 @@ public interface VisaIntegration {
   List<Concepto> obtenerListarCuotasProspecto(String psProspecto, Integer psAtencion) throws Exception;
 
   Integer verificaUsuarioExiste(String nombreUsuario, String usuarioClave) throws Exception;
-  
+
   Integer verificaPostulanteExiste(String psCodigo, String psId) throws Exception;
-  
+
   Integer verificaProspectoExiste(String psCodigo, String psId, Integer psAtencion) throws Exception;
-  
+
   Integer registraTransaccionVisa(String psCarrera,String psCliente, BigDecimal psMonto, String periodoAcademico, String psAtencion,List<Concepto> conceptos) throws Exception;
-    
-  
+
   BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception;
-  
+
   void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception;
-  
-  void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,Integer idTran, String estado) throws Exception;
+
+  void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta, String estado) throws Exception;
 
 }
