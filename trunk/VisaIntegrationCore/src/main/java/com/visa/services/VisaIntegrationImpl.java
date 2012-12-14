@@ -91,6 +91,13 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		return visaJdbcTemplateDAO.obtenerInformacionTransaccionVisa(idTran);
 		
 	}
+
+	
+	public void registraTranVisaError(Integer idTran, BigDecimal valor)
+			throws Exception {
+		visaJdbcTemplateDAO.registraTranVisaError(idTran, valor);
+
+	}
 	
 	
 

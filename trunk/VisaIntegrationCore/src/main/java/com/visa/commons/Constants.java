@@ -11,6 +11,8 @@ public final class Constants {
 	public static String SF_VERIFICAUSUARIOEXISTE = "Pkg_Sso.SF_VERIFICAUSUARIOEXISTE";
 	public static String SF_VERIFICARPOSTULANTEEXISTE = "Pkg_Sso.SF_VERIFICARPOSTULANTEEXISTE";
 	public static String SF_VERIFICARPROSPECTOEXISTE = "Pkg_Sso.SF_VERIFICARPROSPECTOEXISTE";
+	public static String SPI_REGISTRATRANVISAERROR = "PKG_PAGOVISA.SPI_REGISTRATRANVISAERROR";
+	
 
 	public static String SPI_REGISTRATRANVISA = "PKG_PAGOVISA.SPI_REGISTRATRANVISA";
 	public static String SPI_REGISTRATRANVISADET = "PKG_PAGOVISA.SPI_REGISTRATRANVISADET";
@@ -31,6 +33,7 @@ public final class Constants {
 	public static String PN_ATENCION = "PN_ATENCION";
 	public static String PS_ATENCION = "PS_ATENCION";
 	public static String PN_IDTRAN = "PN_IDTRAN";
+	public static String PN_VALOR = "PN_VALOR";	
 	public static String PS_SERVICIO = "PS_SERVICIO";
 	public static String PN_CUOTA = "PN_CUOTA";
 	public static String PN_MONTO = "PN_MONTO";
