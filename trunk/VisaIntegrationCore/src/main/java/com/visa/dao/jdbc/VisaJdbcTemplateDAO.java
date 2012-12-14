@@ -35,5 +35,7 @@ public interface VisaJdbcTemplateDAO {
   
   void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception;
   
-  public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta) throws Exception;
+  void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta) throws Exception;
+  
+  void obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
 }
