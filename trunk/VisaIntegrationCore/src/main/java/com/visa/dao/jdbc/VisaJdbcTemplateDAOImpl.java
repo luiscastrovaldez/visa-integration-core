@@ -24,6 +24,7 @@ import org.springframework.stereotype.Repository;
 import com.visa.commons.Constants;
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
+import com.visa.domain.TranVisaRespuesta;
 import com.visa.jdbc.ExecuteProcedure;
 
 @Repository
@@ -473,12 +474,11 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
 	 
 	@SuppressWarnings("unchecked")
-	public void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception {
+	public void actualizarEstadoTranVisa(Integer idTran, String estado)
+			throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
 		Map<String, Object> inputs = null;
-		Map<String, Object> results = null;
-		Object retorno;
 
 		try {
 			dataSource = SessionFactoryUtils.getDataSource(getSession()
@@ -493,10 +493,9 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 					Constants.SPU_ACTUALIZARESTADOTRANVISA, paramsInput,
 					paramsOutput);
 			inputs = new HashMap<String, Object>();
-			 inputs.put(Constants.PN_IDTRAN, idTran);
-			 inputs.put(Constants.PS_ESTADO, estado);
-			results = execSp.executeSp(inputs);
-			retorno = ExecuteProcedure.retornaValue(results);
+			inputs.put(Constants.PN_IDTRAN, idTran);
+			inputs.put(Constants.PS_ESTADO, estado);
+			execSp.executeSp(inputs);
 
 		} catch (Exception e) {
 			throw e;
@@ -512,8 +511,8 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
 		Map<String, Object> inputs = null;
-		Map<String, Object> results = null;
-		List<Carrera> lista = null;
+		
+		
 		try {
 			dataSource = SessionFactoryUtils.getDataSource(getSession()
 					.getSessionFactory());
@@ -533,15 +532,70 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			inputs = new HashMap<String, Object>();
 			inputs.put(Constants.PN_IDTRAN, idTran);
 			inputs.put(Constants.PD_FECHATRAN, new TIMESTAMP());
-			results = execSp.executeSp(inputs);
-			lista = ExecuteProcedure.retornaLista(results);
+			execSp.executeSp(inputs);
+			
 		} catch (Exception e) {
 			throw e;
 		}
 
+	}
 	
+	@SuppressWarnings("unchecked")
+	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+				
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PS_ALUMNO,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_CARRERA,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_RESPUESTA,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_CODTIENDA,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_NORDENT,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_CODACCION,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_PAN,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_ECI,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_CODAUTORIZA,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_ORITARJETA,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_NOMEMISOR,OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_DESCECI,OracleTypes.NVARCHAR));
+						
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			
+
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPI_REGISTRATRANVISARESPUESTA, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PN_IDTRAN, tranVisaRespuesta.getIdTran());
+			inputs.put(Constants.PS_ALUMNO,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_CARRERA,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_RESPUESTA,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_CODTIENDA,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_NORDENT,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_CODACCION,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_PAN,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_ECI,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_CODAUTORIZA,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_ORITARJETA,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_NOMEMISOR,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_DESCECI,OracleTypes.NVARCHAR);
+			
+			execSp.executeSp(inputs);
+			
+		} catch (Exception e) {
+			throw e;
+		}
 
 	}
+	
+	
+	
 	
 
 }
