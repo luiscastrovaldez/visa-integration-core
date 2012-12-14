@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.visa.dao.jdbc.VisaJdbcTemplateDAO;
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
+import com.visa.domain.TranVisaRespuesta;
 
 @Service("visaIntegration")
 public class VisaIntegrationImpl implements VisaIntegration {
@@ -81,6 +82,14 @@ public class VisaIntegrationImpl implements VisaIntegration {
 
 	public void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception {
 		visaJdbcTemplateDAO.actualizarEstadoTranVisa(idTran, estado);
+	}
+	
+	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,
+			String estado) throws Exception {
+		visaJdbcTemplateDAO.registraTranVisaRespuesta(tranVisaRespuesta);
+		visaJdbcTemplateDAO.actualizarEstadoTranVisa(
+				tranVisaRespuesta.getIdTran(), estado);
+
 	}
   
   

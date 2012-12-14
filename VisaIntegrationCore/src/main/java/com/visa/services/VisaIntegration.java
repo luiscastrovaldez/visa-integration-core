@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
+import com.visa.domain.TranVisaRespuesta;
 
 public interface VisaIntegration {
 
@@ -32,5 +33,7 @@ public interface VisaIntegration {
   BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception;
   
   void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception;
+  
+  void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,String estado) throws Exception;
 
 }

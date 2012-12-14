@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
+import com.visa.domain.TranVisaRespuesta;
 
 public interface VisaJdbcTemplateDAO {
 
@@ -33,4 +34,6 @@ public interface VisaJdbcTemplateDAO {
   BigDecimal obtenerMontoTransaccionVisa(Integer idTran) throws Exception;
   
   void actualizarEstadoTranVisa(Integer idTran, String estado) throws Exception;
+  
+  public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta) throws Exception;
 }
