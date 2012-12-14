@@ -594,6 +594,40 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void registraTranVisaError(Integer idTran, BigDecimal valor)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		
+		
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PN_VALOR,OracleTypes.NUMBER));
+			
+
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			
+
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPI_REGISTRATRANVISAERROR, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PN_IDTRAN, idTran);
+			inputs.put(Constants.PN_VALOR, valor);
+			
+			execSp.executeSp(inputs);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
 	
 	
 	

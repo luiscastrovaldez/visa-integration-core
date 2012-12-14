@@ -128,4 +128,16 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 		}
 
 	}
+	
+	@Test
+	public void registraTranVisaErrorTest() {
+
+		try {
+			visaIntegration.registraTranVisaError(160, new BigDecimal(9999));		
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
 }

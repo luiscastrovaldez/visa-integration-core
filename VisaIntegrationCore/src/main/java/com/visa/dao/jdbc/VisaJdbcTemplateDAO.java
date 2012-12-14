@@ -39,4 +39,6 @@ public interface VisaJdbcTemplateDAO {
   void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta) throws Exception;
   
   Map obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
+  
+  void registraTranVisaError(Integer idTran, BigDecimal valor) throws Exception;
 }
