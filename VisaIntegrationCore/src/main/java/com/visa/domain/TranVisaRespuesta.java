@@ -2,7 +2,6 @@ package com.visa.domain;
 
 public class TranVisaRespuesta {
 
-	
 	private String estado;
 	private String alumno;
 	private String carrera;
@@ -25,9 +24,6 @@ public class TranVisaRespuesta {
 	private String datoComercio;
 	private String descripcionProducto;
 	private String descripcionCodigo;
-		
-
-
 
 	public String getEstado() {
 		return estado;
