@@ -84,4 +84,13 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		visaJdbcTemplateDAO.actualizarEstadoTranVisa(Integer.valueOf(tranVisaRespuesta.getnOrdenT()), estado);
 	}
 
+	
+	public void obtenerInformacionTransaccionVisa(Integer idTran)
+			throws Exception {
+		visaJdbcTemplateDAO.obtenerInformacionTransaccionVisa(idTran);
+		
+	}
+	
+	
+
 }
