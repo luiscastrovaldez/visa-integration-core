@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.visa.VisaCoreTest;
 import com.visa.domain.Carrera;
+import com.visa.domain.TranVisaRespuesta;
 
 public class VisaIntegrationImplTest extends VisaCoreTest {
 
@@ -80,6 +81,32 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 
 		try {
 			visaIntegration.actualizarEstadoTranVisa(12735,"P");			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void registraTranVisaRespuestaTest() {
+
+		try {
+			TranVisaRespuesta tranVisaRespuesta = new TranVisaRespuesta();
+			tranVisaRespuesta.setAlumno("a2010900216");
+			tranVisaRespuesta.setCarrera("238");
+			tranVisaRespuesta.setRespuesta("2");
+			tranVisaRespuesta.setCodTienda("466246301");
+			tranVisaRespuesta.setnOrdenT("5592999");
+			tranVisaRespuesta.setCodAccion("420");
+			tranVisaRespuesta.setPan("000000******0000");
+			tranVisaRespuesta.setEci("");
+			tranVisaRespuesta.setCodAutoriza("");
+			tranVisaRespuesta.setOriTarjeta("S");
+			tranVisaRespuesta.setNomEmisor("Luis Castro");
+			tranVisaRespuesta.setDscEci("No se puede determin");
+						
+			visaIntegration.registraTranVisaRespuesta(tranVisaRespuesta, "T");		
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
