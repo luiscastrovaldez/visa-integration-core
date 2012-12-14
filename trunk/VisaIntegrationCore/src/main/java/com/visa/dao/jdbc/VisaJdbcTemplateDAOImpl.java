@@ -573,18 +573,18 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 					paramsOutput);
 			inputs = new HashMap<String, Object>();
 			
-			inputs.put(Constants.PS_ALUMNO,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_CARRERA,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_RESPUESTA,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_CODTIENDA,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_NORDENT,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_CODACCION,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_PAN,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_ECI,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_CODAUTORIZA,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_ORITARJETA,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_NOMEMISOR,OracleTypes.NVARCHAR);
-			inputs.put(Constants.PS_DESCECI,OracleTypes.NVARCHAR);
+			inputs.put(Constants.PS_ALUMNO,tranVisaRespuesta.getAlumno());
+			inputs.put(Constants.PS_CARRERA,tranVisaRespuesta.getCarrera());
+			inputs.put(Constants.PS_RESPUESTA,tranVisaRespuesta.getRespuesta());
+			inputs.put(Constants.PS_CODTIENDA,tranVisaRespuesta.getCodTienda());
+			inputs.put(Constants.PS_NORDENT,tranVisaRespuesta.getnOrdenT());
+			inputs.put(Constants.PS_CODACCION,tranVisaRespuesta.getCodAccion());
+			inputs.put(Constants.PS_PAN,tranVisaRespuesta.getPan());
+			inputs.put(Constants.PS_ECI,tranVisaRespuesta.getEci());
+			inputs.put(Constants.PS_CODAUTORIZA,tranVisaRespuesta.getCodAutoriza());
+			inputs.put(Constants.PS_ORITARJETA,tranVisaRespuesta.getOriTarjeta());
+			inputs.put(Constants.PS_NOMEMISOR,tranVisaRespuesta.getNomEmisor());
+			inputs.put(Constants.PS_DESCECI,tranVisaRespuesta.getDscEci());
 			
 			execSp.executeSp(inputs);
 			
