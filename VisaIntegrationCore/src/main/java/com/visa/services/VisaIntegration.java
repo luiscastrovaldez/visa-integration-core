@@ -2,6 +2,7 @@ package com.visa.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
@@ -35,6 +36,6 @@ public interface VisaIntegration {
 
   void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta, String estado) throws Exception;
   
-  void obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
+  Map obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
 
 }

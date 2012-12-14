@@ -506,7 +506,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 	
     
 	@SuppressWarnings("unchecked")
-	public void obtenerInformacionTransaccionVisa(Integer idTran)
+	public Map obtenerInformacionTransaccionVisa(Integer idTran)
 			throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
@@ -519,20 +519,20 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			paramsInput = new ArrayList<SqlParameter>();
 			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,
 					OracleTypes.INTEGER));
-			paramsInput.add(new SqlParameter(Constants.PD_FECHATRAN,
-					OracleTypes.TIMESTAMP));
+			
 
 			paramsOutput = new ArrayList<SqlOutParameter>();
-			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR,
-					OracleTypes.CURSOR));
+			paramsOutput.add(new SqlOutParameter(Constants.PD_FECHATRAN,OracleTypes.DATE));
+			paramsOutput.add(new SqlOutParameter(Constants.PN_MONTO,OracleTypes.DECIMAL));
+			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR,OracleTypes.CURSOR));
 
 			execSp = new ExecuteProcedure(dataSource,
 					Constants.SPS_OBTENERINFOTRANVISA, paramsInput,
 					paramsOutput);
 			inputs = new HashMap<String, Object>();
 			inputs.put(Constants.PN_IDTRAN, idTran);
-			inputs.put(Constants.PD_FECHATRAN, new TIMESTAMP());
-			execSp.executeSp(inputs);
+			
+			return execSp.executeSp(inputs);
 			
 		} catch (Exception e) {
 			throw e;

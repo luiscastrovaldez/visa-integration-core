@@ -1,7 +1,9 @@
 package com.visa.services;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -107,6 +109,19 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 			tranVisaRespuesta.setDscEci("No se puede determin");
 						
 			visaIntegration.registraTranVisaRespuesta(tranVisaRespuesta, "T");		
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void obtenerInformacionTransaccionVisaTest() {
+
+		try {
+			Map map = visaIntegration.obtenerInformacionTransaccionVisa(160);	
+			System.out.println(map.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();

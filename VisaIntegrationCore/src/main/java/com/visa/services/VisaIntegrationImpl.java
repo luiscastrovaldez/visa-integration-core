@@ -3,6 +3,7 @@ package com.visa.services;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,9 +86,9 @@ public class VisaIntegrationImpl implements VisaIntegration {
 	}
 
 	
-	public void obtenerInformacionTransaccionVisa(Integer idTran)
+	public Map obtenerInformacionTransaccionVisa(Integer idTran)
 			throws Exception {
-		visaJdbcTemplateDAO.obtenerInformacionTransaccionVisa(idTran);
+		return visaJdbcTemplateDAO.obtenerInformacionTransaccionVisa(idTran);
 		
 	}
 	

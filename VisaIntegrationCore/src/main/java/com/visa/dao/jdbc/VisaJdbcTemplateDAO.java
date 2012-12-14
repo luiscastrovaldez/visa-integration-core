@@ -2,6 +2,7 @@ package com.visa.dao.jdbc;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
@@ -37,5 +38,5 @@ public interface VisaJdbcTemplateDAO {
   
   void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta) throws Exception;
   
-  void obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
+  Map obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
 }
