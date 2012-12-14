@@ -84,11 +84,9 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		visaJdbcTemplateDAO.actualizarEstadoTranVisa(idTran, estado);
 	}
 	
-	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,
-			String estado) throws Exception {
+	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta,Integer idTran, String estado) throws Exception {
 		visaJdbcTemplateDAO.registraTranVisaRespuesta(tranVisaRespuesta);
-		visaJdbcTemplateDAO.actualizarEstadoTranVisa(
-				tranVisaRespuesta.getIdTran(), estado);
+		visaJdbcTemplateDAO.actualizarEstadoTranVisa(idTran, estado);
 
 	}
   

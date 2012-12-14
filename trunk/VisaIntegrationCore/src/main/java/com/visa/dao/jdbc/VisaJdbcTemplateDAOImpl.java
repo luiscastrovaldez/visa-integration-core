@@ -551,7 +551,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			dataSource = SessionFactoryUtils.getDataSource(getSession()
 					.getSessionFactory());
 			paramsInput = new ArrayList<SqlParameter>();
-			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,OracleTypes.INTEGER));
+			
 			paramsInput.add(new SqlParameter(Constants.PS_ALUMNO,OracleTypes.NVARCHAR));
 			paramsInput.add(new SqlParameter(Constants.PS_CARRERA,OracleTypes.NVARCHAR));
 			paramsInput.add(new SqlParameter(Constants.PS_RESPUESTA,OracleTypes.NVARCHAR));
@@ -572,7 +572,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 					Constants.SPI_REGISTRATRANVISARESPUESTA, paramsInput,
 					paramsOutput);
 			inputs = new HashMap<String, Object>();
-			inputs.put(Constants.PN_IDTRAN, tranVisaRespuesta.getIdTran());
+			
 			inputs.put(Constants.PS_ALUMNO,OracleTypes.NVARCHAR);
 			inputs.put(Constants.PS_CARRERA,OracleTypes.NVARCHAR);
 			inputs.put(Constants.PS_RESPUESTA,OracleTypes.NVARCHAR);
