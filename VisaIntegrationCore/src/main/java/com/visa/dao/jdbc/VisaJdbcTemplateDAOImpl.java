@@ -628,6 +628,165 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Integer obtenerFlagPostulante(String carrera)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;		
+	    Map<String, Object> results = null;
+	    Integer flagUsuario = null;
+				
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+						
+			paramsInput.add(new SqlParameter(Constants.PS_CARRERA,OracleTypes.NVARCHAR));
+									
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SF_OBTENERFLAGPOSTULANTE, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			
+			
+			inputs.put(Constants.PS_CARRERA,carrera);
+			
+			
+			
+			results = execSp.executeSp(inputs);
+		      Object retorno = ExecuteProcedure.retornaValue(results);
+		      if (retorno != null) {
+		        flagUsuario = (Integer) retorno;
+		      }
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return flagUsuario;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Integer obtenerDatosVirtual(Integer nroTransaccion)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;		
+	    Map<String, Object> results = null;
+	    Integer flag = null;
+				
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+						
+			paramsInput.add(new SqlParameter(Constants.PN_NROTRANSACCION,OracleTypes.NUMBER));
+									
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.PS_VALOR,OracleTypes.INTEGER));
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPM_DATOSVIRTUAL, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			
+			
+			inputs.put(Constants.PN_NROTRANSACCION,nroTransaccion);
+							
+			results = execSp.executeSp(inputs);
+		      Object retorno = ExecuteProcedure.retornaValue(results);
+		      if (retorno != null) {
+		    	  flag = (Integer) retorno;
+		      }
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return flag;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Integer obtenerDatosAlumnoVirtual(Integer nroTransaccion)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;		
+	    Map<String, Object> results = null;
+	    Integer flag = null;
+				
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+						
+			paramsInput.add(new SqlParameter(Constants.PN_NROTRANSACCION,OracleTypes.NUMBER));
+									
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.PS_VALOR,OracleTypes.INTEGER));
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPM_DATOSALUMNOVIRTUAL, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			
+			
+			inputs.put(Constants.PN_NROTRANSACCION,nroTransaccion);
+							
+			results = execSp.executeSp(inputs);
+		      Object retorno = ExecuteProcedure.retornaValue(results);
+		      if (retorno != null) {
+		    	  flag = (Integer) retorno;
+		      }
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return flag;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Integer obtenerDatosPostulanteVirtual(Integer nroTransaccion)
+			throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;		
+	    Map<String, Object> results = null;
+	    Integer flag = null;
+				
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession()
+					.getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+						
+			paramsInput.add(new SqlParameter(Constants.PN_NROTRANSACCION,OracleTypes.NUMBER));
+									
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.PS_VALOR,OracleTypes.INTEGER));
+			execSp = new ExecuteProcedure(dataSource,
+					Constants.SPM_DATOSPOSTULANTEVIRTUAL, paramsInput,
+					paramsOutput);
+			inputs = new HashMap<String, Object>();
+			
+			
+			inputs.put(Constants.PN_NROTRANSACCION,nroTransaccion);
+							
+			results = execSp.executeSp(inputs);
+		      Object retorno = ExecuteProcedure.retornaValue(results);
+		      if (retorno != null) {
+		    	  flag = (Integer) retorno;
+		      }
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return flag;
+
+	}
+	
+	
 	
 	
 	
