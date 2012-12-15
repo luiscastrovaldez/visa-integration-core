@@ -39,5 +39,13 @@ public interface VisaIntegration {
   Map obtenerInformacionTransaccionVisa(Integer idTran) throws Exception;
   
   void registraTranVisaError(Integer idTran, BigDecimal valor) throws Exception;
+  
+  Integer obtenerFlagPostulante(String carrera) throws Exception;
+  
+  Integer obtenerDatosVirtual(Integer nroTransaccion) throws Exception;
+  
+  Integer obtenerDatosAlumnoVirtual(Integer nroTransaccion)	throws Exception;
+  
+  Integer obtenerDatosPostulanteVirtual(Integer nroTransaccion) throws Exception;
 
 }

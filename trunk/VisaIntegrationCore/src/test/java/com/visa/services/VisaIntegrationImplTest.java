@@ -38,7 +38,7 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 			flag = visaIntegration.verificaUsuarioExiste("a2012900222",	"bif87933");
 			System.out.println(" flag " + flag);
 			Assert.assertNotNull(flag);
-			Assert.assertTrue(flag > 0);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -140,4 +140,49 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 		}
 
 	}
+	
+	
+	@Test 
+	public void obtenerDatosVirtualTest() {
+		Integer flag;
+		try {
+			flag = visaIntegration.obtenerDatosVirtual(Integer.valueOf("160"));
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void obtenerDatosAlumnoVirtualTest() {
+		Integer flag;
+		try {
+			flag = visaIntegration.obtenerDatosAlumnoVirtual(Integer.valueOf("160"));
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	@Test
+	public void obtenerDatosPostulanteVirtualTest() {
+		Integer flag;
+		try {
+			flag = visaIntegration.obtenerDatosPostulanteVirtual(Integer.valueOf("160")); 
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+	
+	
 }

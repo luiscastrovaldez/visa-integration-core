@@ -98,6 +98,28 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		visaJdbcTemplateDAO.registraTranVisaError(idTran, valor);
 
 	}
+
+	
+	public Integer obtenerFlagPostulante(String carrera) throws Exception {
+		return visaJdbcTemplateDAO.obtenerFlagPostulante(carrera);
+	}
+
+	
+	public Integer obtenerDatosVirtual(Integer nroTransaccion) throws Exception {		
+		return visaJdbcTemplateDAO.obtenerDatosVirtual(nroTransaccion);
+	}
+
+	
+	public Integer obtenerDatosAlumnoVirtual(Integer nroTransaccion)
+			throws Exception {	
+		return visaJdbcTemplateDAO.obtenerDatosAlumnoVirtual(nroTransaccion);
+	}
+
+	
+	public Integer obtenerDatosPostulanteVirtual(Integer nroTransaccion)
+			throws Exception {		
+		return visaJdbcTemplateDAO.obtenerDatosPostulanteVirtual(nroTransaccion);
+	}
 	
 	
 

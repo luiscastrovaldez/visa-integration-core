@@ -29,6 +29,8 @@ public final class Constants {
 	public static String SPI_REGISTRATRANVISARESPUESTA = "PKG_PAGOVISA.SPI_REGISTRATRANVISARESPUESTA";
 
 	public static String PS_CLIENTE = "PS_CLIENTE";
+	public static String PN_NROTRANSACCION = "PN_NROTRANSACCION";	
+	public static String PS_VALOR = "PS_VALOR";	
 	public static String PS_PERIODOAC = "PS_PERIODOAC";
 	public static String PN_ATENCION = "PN_ATENCION";
 	public static String PS_ATENCION = "PS_ATENCION";
