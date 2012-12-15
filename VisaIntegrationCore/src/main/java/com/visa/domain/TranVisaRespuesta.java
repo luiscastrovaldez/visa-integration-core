@@ -23,7 +23,6 @@ public class TranVisaRespuesta {
 	private String fechaHoraDevolucion;
 	private String datoComercio;
 	private String descripcionProducto;
-	private String descripcionCodigo;
 
 	public String getEstado() {
 		return estado;
@@ -191,14 +190,6 @@ public class TranVisaRespuesta {
 
 	public void setDescripcionProducto(String descripcionProducto) {
 		this.descripcionProducto = descripcionProducto;
-	}
-
-	public String getDescripcionCodigo() {
-		return descripcionCodigo;
-	}
-
-	public void setDescripcionCodigo(String descripcionCodigo) {
-		this.descripcionCodigo = descripcionCodigo;
 	}
 
 }
