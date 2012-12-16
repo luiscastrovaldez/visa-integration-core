@@ -1,9 +1,7 @@
 package com.visa.services;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.visa.VisaCoreTest;
 import com.visa.domain.Carrera;
+import com.visa.domain.InfoTranVISA;
 import com.visa.domain.TranVisaRespuesta;
 
 public class VisaIntegrationImplTest extends VisaCoreTest {
@@ -120,28 +119,15 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 	public void obtenerInformacionTransaccionVisaTest() {
 
 		try {
-			Map map = visaIntegration.obtenerInformacionTransaccionVisa(160);	
-			System.out.println(map.size());
+			InfoTranVISA infoTranVISA = visaIntegration.obtenerInformacionTransaccionVisa(160);
+			System.out.println(infoTranVISA.getListaConceptos().size());
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
 
 	}
-	
-	@Test
-	public void registraTranVisaErrorTest() {
 
-		try {
-			visaIntegration.registraTranVisaError(160, new BigDecimal(9999));		
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-
-	}
-	
-	
 	@Test 
 	public void obtenerDatosVirtualTest() {
 		Integer flag;
