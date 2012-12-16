@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>.:: Universidad Norbert Wiener ::.</title>
+        <style type="text/css">
+            body { font-family: Verdana, Arial; font-size: 12px; }
+            h1 { font-size: 16px; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>Felicitaciones</h1>
+        <p>Estimado(a): <b>$nombre</b></p>
+        <p>
+            Ud. ha cumplido el tr�mite necesario para ser considerado como alumno. 
+            <br />
+            Puede hacer efectivo el pago de las cuotas que a�n le faltan en la direcci�n: 
+            <br /><a href="http://190.216.171.125:8080/visaintegration/">Ingresar a Pasarela de pago</a><br />
+            utilizando la siguiente informaci�n.
+            <ul>
+                <li><b>Usuario: </b> $usuario</li>
+                <li><b>Contrase�a: </b> $clave</li>
+            </ul>
+        </ul>
+        </p>
+        <b>
+          Atte.<br />
+          Direcci�n de Sistemas.<br />
+          Universidad Privada Norbert Wiener.
+        </b>
+    </body>
+    </html>

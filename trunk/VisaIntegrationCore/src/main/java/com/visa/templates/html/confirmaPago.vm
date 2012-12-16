@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>.:: Universidad Norbert Wiener ::.</title>
+        <style type="text/css">
+            body { font-family: Verdana, Arial; font-size: 12px; }
+            h1 { font-size: 16px; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>Confirmación</h1>
+        <p>Estimado(a): <b>$nombre</b></p>
+        <p>
+            Se ha hecho efectivo su pago por concepto de:
+            <b>$concepto la EPG de la Universidad Wiener</b>
+            con los siguientes datos a tener en cuenta:
+            <ul>
+                <li><b>Código de Cliente: </b> $idCliente</li>
+                <li><b>Código de Transferencia: </b> $idTransferencia</li>
+                <li><b>Monto en Soles: </b> $monto</li>
+            </ul>
+        </ul>
+        </p>
+        <b>
+          Atte.<br />
+          Dirección de Sistemas.<br />
+          Universidad Privada Norbert Wiener.
+        </b>
+    </body>
+    </html>
