@@ -74,5 +74,11 @@ public final class Constants {
 	public static int PERFIL_ALUMNO = 2;
 
 	public static int INT_POSTULANTE = 0;
+	
+	public static final String EMAIL_TYPE_ERROR = "error";
+	public static final String EMAIL_TYPE_INFO = "info";
+	public static final String EMAIL_SEPARATOR = ";";
+	
+	public static final String SMTP = "smtp";
 
 }
