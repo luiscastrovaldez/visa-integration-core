@@ -12,7 +12,6 @@ public final class Constants {
 	public static String SF_VERIFICARPOSTULANTEEXISTE = "Pkg_Sso.SF_VERIFICARPOSTULANTEEXISTE";
 	public static String SF_VERIFICARPROSPECTOEXISTE = "Pkg_Sso.SF_VERIFICARPROSPECTOEXISTE";
 	public static String SPI_REGISTRATRANVISAERROR = "PKG_PAGOVISA.SPI_REGISTRATRANVISAERROR";
-	
 
 	public static String SPI_REGISTRATRANVISA = "PKG_PAGOVISA.SPI_REGISTRATRANVISA";
 	public static String SPI_REGISTRATRANVISADET = "PKG_PAGOVISA.SPI_REGISTRATRANVISADET";
@@ -27,6 +26,11 @@ public final class Constants {
 	public static String SPS_CUOTAS = "PKG_PAGOVISA.SPS_CUOTAS";
 	public static String SF_OBTENERCARRERAPREGRADO = "PKG_PAGOVISA.SF_OBTENERCARRERAPREGRADO";
 	public static String SPI_REGISTRATRANVISARESPUESTA = "PKG_PAGOVISA.SPI_REGISTRATRANVISARESPUESTA";
+
+	public static String SF_OBTENERNOMBREPROSPECTO = "Pkg_Mensajeria.SF_OBTENERNOMBREPROSPECTO";
+	public static String SF_OBTENERNOMBREPOSTULANTE = "Pkg_Mensajeria.SF_OBTENERNOMBREPOSTULANTE";
+	public static String SF_OBTENERNOMBREALUMNOPG = "Pkg_Mensajeria.SF_OBTENERNOMBREALUMNOPG";
+	public static String SPS_USUARIOCLAVENUEVOALUMNO = "Pkg_Sso.SPS_USUARIOCLAVENUEVOALUMNO";
 
 	public static String PS_CLIENTE = "PS_CLIENTE";
 	public static String PN_NROTRANSACCION = "PN_NROTRANSACCION";	
@@ -74,11 +78,11 @@ public final class Constants {
 	public static int PERFIL_ALUMNO = 2;
 
 	public static int INT_POSTULANTE = 0;
-	
+
 	public static final String EMAIL_TYPE_ERROR = "error";
 	public static final String EMAIL_TYPE_INFO = "info";
 	public static final String EMAIL_SEPARATOR = ";";
-	
+
 	public static final String SMTP = "smtp";
 
 }

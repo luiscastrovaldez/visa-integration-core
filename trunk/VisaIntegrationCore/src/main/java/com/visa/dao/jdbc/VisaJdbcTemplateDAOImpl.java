@@ -2,6 +2,7 @@ package com.visa.dao.jdbc;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import oracle.jdbc.OracleTypes;
-import oracle.sql.TIMESTAMP;
 
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,21 +25,26 @@ import org.springframework.stereotype.Repository;
 import com.visa.commons.Constants;
 import com.visa.domain.Carrera;
 import com.visa.domain.Concepto;
+import com.visa.domain.InfoTranVISA;
+import com.visa.domain.NombreConcepto;
 import com.visa.domain.TranVisaRespuesta;
+import com.visa.domain.Usuario;
 import com.visa.jdbc.ExecuteProcedure;
 
 @Repository
 public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements VisaJdbcTemplateDAO {
 
-  private JdbcTemplate jdbcTemplate;
-  private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-  private DataSource dataSource;
-  private ExecuteProcedure execSp;
+	private static final Logger LOGGER = Logger.getLogger(VisaJdbcTemplateDAOImpl.class);
 
-  @Autowired
-  public VisaJdbcTemplateDAOImpl(SessionFactory sessionFactory) {
-    setSessionFactory(sessionFactory);
-  }
+	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private DataSource dataSource;
+	private ExecuteProcedure execSp;
+
+	@Autowired
+	public VisaJdbcTemplateDAOImpl(SessionFactory sessionFactory) {
+		setSessionFactory(sessionFactory);
+	}
 
   public void setDataSource(DataSource dataSource) {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -66,6 +72,7 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
       results = execSp.executeSp(inputs);
       lista = ExecuteProcedure.retornaLista(results);
     } catch (Exception e) {
+    	LOGGER.error("Error en obtenerCarrerasPostgrado", e);
       throw e;
     }
 
@@ -454,26 +461,22 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
         execSp = new ExecuteProcedure(dataSource, Constants.SPS_OBTENERMONTOTRANVISA, paramsInput, paramsOutput);
         inputs = new HashMap<String, Object>();
         inputs.put(Constants.PN_IDTRAN, idTran);
-        
-        results = execSp.executeSp(inputs);
-        retorno = ExecuteProcedure.retornaValue(results);
-        
-        if (retorno != null) {
-        	monto = (BigDecimal) retorno;
+
+			results = execSp.executeSp(inputs);
+			retorno = ExecuteProcedure.retornaValue(results);
+
+			if (retorno != null) {
+				monto = (BigDecimal) retorno;
+			}
+
+		} catch (Exception e) {
+			throw e;
 		}
-        
-        
-      } catch (Exception e) {
-        throw e;
-      }
 
       return monto;
 
     }
-    
 
-	 
-	@SuppressWarnings("unchecked")
 	public void actualizarEstadoTranVisa(Integer idTran, String estado)
 			throws Exception {
 		List<SqlParameter> paramsInput = null;
@@ -481,17 +484,12 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		Map<String, Object> inputs = null;
 
 		try {
-			dataSource = SessionFactoryUtils.getDataSource(getSession()
-					.getSessionFactory());
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
 			paramsInput = new ArrayList<SqlParameter>();
-			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,
-					OracleTypes.INTEGER));
-			paramsInput.add(new SqlParameter(Constants.PS_ESTADO,
-					OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN, OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PS_ESTADO, OracleTypes.NVARCHAR));
 			paramsOutput = new ArrayList<SqlOutParameter>();
-			execSp = new ExecuteProcedure(dataSource,
-					Constants.SPU_ACTUALIZARESTADOTRANVISA, paramsInput,
-					paramsOutput);
+			execSp = new ExecuteProcedure(dataSource, Constants.SPU_ACTUALIZARESTADOTRANVISA, paramsInput, paramsOutput);
 			inputs = new HashMap<String, Object>();
 			inputs.put(Constants.PN_IDTRAN, idTran);
 			inputs.put(Constants.PS_ESTADO, estado);
@@ -502,45 +500,36 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		}
 
 	}
-	
-	
-    
+
 	@SuppressWarnings("unchecked")
-	public Map obtenerInformacionTransaccionVisa(Integer idTran)
-			throws Exception {
+	public InfoTranVISA obtenerInformacionTransaccionVisa(Integer idTran) throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
 		Map<String, Object> inputs = null;
-		
-		
+
 		try {
-			dataSource = SessionFactoryUtils.getDataSource(getSession()
-					.getSessionFactory());
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
 			paramsInput = new ArrayList<SqlParameter>();
-			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,
-					OracleTypes.INTEGER));
-			
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN, OracleTypes.INTEGER));
 
 			paramsOutput = new ArrayList<SqlOutParameter>();
-			paramsOutput.add(new SqlOutParameter(Constants.PD_FECHATRAN,OracleTypes.DATE));
-			paramsOutput.add(new SqlOutParameter(Constants.PN_MONTO,OracleTypes.DECIMAL));
-			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR,OracleTypes.CURSOR));
+			paramsOutput.add(new SqlOutParameter(Constants.PD_FECHATRAN, OracleTypes.DATE));
+			paramsOutput.add(new SqlOutParameter(Constants.PN_MONTO, OracleTypes.DECIMAL));
+			paramsOutput.add(new SqlOutParameter(Constants.P_CURSOR, OracleTypes.CURSOR, new NombreConcepto()));
 
-			execSp = new ExecuteProcedure(dataSource,
-					Constants.SPS_OBTENERINFOTRANVISA, paramsInput,
-					paramsOutput);
+			execSp = new ExecuteProcedure(dataSource, Constants.SPS_OBTENERINFOTRANVISA, paramsInput, paramsOutput);
 			inputs = new HashMap<String, Object>();
 			inputs.put(Constants.PN_IDTRAN, idTran);
-			
-			return execSp.executeSp(inputs);
-			
+
+			Map<String, Object> results = execSp.executeSp(inputs);
+			List lista = ExecuteProcedure.retornaLista(results);
+			return new InfoTranVISA((Date)results.get(Constants.PD_FECHATRAN), (BigDecimal)results.get(Constants.PN_MONTO), lista);
 		} catch (Exception e) {
 			throw e;
 		}
 
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void registraTranVisaRespuesta(TranVisaRespuesta tranVisaRespuesta)
 			throws Exception {
 		List<SqlParameter> paramsInput = null;
@@ -593,9 +582,8 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		}
 
 	}
-	
-	@SuppressWarnings("unchecked")
-	public void registraTranVisaError(Integer idTran, BigDecimal valor)
+
+	public void registraTranVisaError(Integer idTran, Integer valor)
 			throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
@@ -606,9 +594,8 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			dataSource = SessionFactoryUtils.getDataSource(getSession()
 					.getSessionFactory());
 			paramsInput = new ArrayList<SqlParameter>();
-			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN,OracleTypes.INTEGER));
-			paramsInput.add(new SqlParameter(Constants.PN_VALOR,OracleTypes.NUMBER));
-			
+			paramsInput.add(new SqlParameter(Constants.PN_IDTRAN, OracleTypes.INTEGER));
+			paramsInput.add(new SqlParameter(Constants.PN_VALOR, OracleTypes.NUMBER));
 
 			paramsOutput = new ArrayList<SqlOutParameter>();
 			
@@ -623,14 +610,14 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			execSp.executeSp(inputs);
 			
 		} catch (Exception e) {
+			LOGGER.error("Error en registraTranVisaError", e);
 			throw e;
 		}
 
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Integer obtenerFlagPostulante(String carrera)
-			throws Exception {
+	public Integer obtenerFlagPostulante(String carrera) throws Exception {
 		List<SqlParameter> paramsInput = null;
 		List<SqlOutParameter> paramsOutput = null;
 		Map<String, Object> inputs = null;		
@@ -638,35 +625,27 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 	    Integer flagUsuario = null;
 				
 		try {
-			dataSource = SessionFactoryUtils.getDataSource(getSession()
-					.getSessionFactory());
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
 			paramsInput = new ArrayList<SqlParameter>();
-						
-			paramsInput.add(new SqlParameter(Constants.PS_CARRERA,OracleTypes.NVARCHAR));
-									
+			paramsInput.add(new SqlParameter(Constants.PS_CARRERA, OracleTypes.NVARCHAR));
 			paramsOutput = new ArrayList<SqlOutParameter>();
-			
-			execSp = new ExecuteProcedure(dataSource,
-					Constants.SF_OBTENERFLAGPOSTULANTE, paramsInput,
-					paramsOutput);
+
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_OBTENERFLAGPOSTULANTE, paramsInput, paramsOutput);
 			inputs = new HashMap<String, Object>();
-			
-			
-			inputs.put(Constants.PS_CARRERA,carrera);
-			
-			
-			
+
+			inputs.put(Constants.PS_CARRERA, carrera);
+
 			results = execSp.executeSp(inputs);
-		      Object retorno = ExecuteProcedure.retornaValue(results);
-		      if (retorno != null) {
-		        flagUsuario = (Integer) retorno;
-		      }
-			
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				flagUsuario = (Integer) retorno;
+			}
+
 		} catch (Exception e) {
+			LOGGER.error("Error en obtenerFlagPostulante", e);
 			throw e;
 		}
 		return flagUsuario;
-
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -702,12 +681,13 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		      }
 			
 		} catch (Exception e) {
+			LOGGER.error("Error en obtenerDatosVirtual", e);
 			throw e;
 		}
 		return flag;
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Integer obtenerDatosAlumnoVirtual(Integer nroTransaccion)
 			throws Exception {
@@ -741,12 +721,13 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		      }
 			
 		} catch (Exception e) {
+			LOGGER.error("Error en obtenerDatosAlumnoVirtual", e);
 			throw e;
 		}
 		return flag;
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Integer obtenerDatosPostulanteVirtual(Integer nroTransaccion)
 			throws Exception {
@@ -780,16 +761,152 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 		      }
 			
 		} catch (Exception e) {
+			LOGGER.error("Error en obtenerDatosPostulanteVirtual", e);
 			throw e;
 		}
 		return flag;
 
 	}
-	
-	
-	
-	
-	
+
+	@SuppressWarnings("unchecked")
+	public String obtenerNombreAlumnoPG(String usuario) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;		
+	    Map<String, Object> results = null;
+	    String infoUsuario = null;
+				
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.NVARCHAR));
+
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_OBTENERNOMBREALUMNOPG, paramsInput, paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+
+			inputs.put(Constants.PS_USUARIO, usuario);
+
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				infoUsuario = (String) retorno;
+			}
+
+		} catch (Exception e) {
+			LOGGER.error("Error en obtenerNombreAlumnoPG", e);
+			throw e;
+		}
+		return infoUsuario;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String obtenerNombreProspecto(String cliente) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		String infoCliente = null;
+
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_PROSPECTO, OracleTypes.NVARCHAR));
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.NVARCHAR));
+
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_OBTENERNOMBREPROSPECTO, paramsInput, paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+
+			inputs.put(Constants.PS_PROSPECTO, cliente);
+
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				infoCliente = (String) retorno;
+			}
+
+		} catch (Exception e) {
+			LOGGER.error("Error en obtenerNombreProspecto", e);
+			throw e;
+		}
+		return infoCliente;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String obtenerNombrePostulante(String idPostulante) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		String infoPostulante = null;
+
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_POSTULANTE, OracleTypes.NVARCHAR));
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.NVARCHAR));
+
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_OBTENERNOMBREPOSTULANTE, paramsInput, paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+
+			inputs.put(Constants.PS_POSTULANTE, idPostulante);
+
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				infoPostulante = (String) retorno;
+			}
+
+		} catch (Exception e) {
+			LOGGER.error("Error en obtenerNombrePostulante", e);
+			throw e;
+		}
+		return infoPostulante;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Usuario obtenerDatosNuevoAlumno(final String idPostulante, final String carrera) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Usuario usuario = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+
+			paramsInput.add(new SqlParameter(Constants.PS_POSTULANTE, OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_CARRERA, OracleTypes.NVARCHAR));
+
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
+			paramsOutput.add(new SqlOutParameter(Constants.PS_CLAVE, OracleTypes.NVARCHAR));
+
+			execSp = new ExecuteProcedure(dataSource, Constants.SPS_USUARIOCLAVENUEVOALUMNO, paramsInput, paramsOutput);
+			inputs = new HashMap<String, Object>();
+
+			inputs.put(Constants.PS_POSTULANTE, idPostulante);
+			inputs.put(Constants.PS_CARRERA, carrera);
+
+			results = execSp.executeSp(inputs);
+			System.out.println(results);
+			String retorno = (String) ExecuteProcedure.retornaValor(results, Constants.PS_USUARIO);
+			if (retorno != null) {
+				usuario = new Usuario();
+				usuario.setUsuario(retorno);
+				retorno = (String) ExecuteProcedure.retornaValor(results, Constants.PS_CLAVE);
+				usuario.setClave(retorno);
+			}
+
+		} catch (Exception e) {
+			LOGGER.error("Error en obtenerDatosNuevoAlumno", e);
+			throw e;
+		}
+		return usuario;
+
+	}
 
 }
-

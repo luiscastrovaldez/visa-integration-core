@@ -12,30 +12,25 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:com/visa/resources/applicationContext-hibernate.xml" })
-@TestExecutionListeners( { DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class })
+@TestExecutionListeners( { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class })
 @TransactionConfiguration(defaultRollback = false)
-public class VisaCoreTest extends
-    AbstractTransactionalJUnit4SpringContextTests {
+public class VisaCoreTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-  @Test
-  public void testApp() {
-    assert (true);
-  }
+	@Test
+	public void testApp() {
+		assert (true);
+	}
 
-  /*@BeforeClass
-  public static void inicializacionClass() {
-    System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-        "org.apache.naming.java.javaURLContextFactory");
-  }
-
-  @Before
-  public void setUp() throws Exception {
-  }
-
-  @After
-  public void tearDown() {
-
-  }*/
+	/*
+	 * @BeforeClass public static void inicializacionClass() {
+	 * System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
+	 * "org.apache.naming.java.javaURLContextFactory"); }
+	 * 
+	 * @Before public void setUp() throws Exception { }
+	 * 
+	 * @After public void tearDown() {
+	 * 
+	 * }
+	 */
 
 }

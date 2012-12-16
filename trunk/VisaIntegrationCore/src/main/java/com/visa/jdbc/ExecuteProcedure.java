@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
-import com.visa.domain.Carrera;
+import com.visa.commons.Constants;
 
 
 public class ExecuteProcedure extends StoredProcedure {
@@ -66,18 +66,15 @@ public class ExecuteProcedure extends StoredProcedure {
 		Iterator it = map.entrySet().iterator();
 		List list = null;
 		while (it.hasNext()) {
-
 			Map.Entry entry = (Map.Entry) it.next();
 
 			String key = (String) entry.getKey();
-
-			list = (List) entry.getValue();
-
-			break;
-
+			if (Constants.P_CURSOR.equals(key)) { 
+				list = (List) entry.getValue();
+				break;
+			}
 		}
 		return list;
-
 	}
 
 	public static Object retornaValue(Map map) {
@@ -97,6 +94,20 @@ public class ExecuteProcedure extends StoredProcedure {
 		}
 		return value;
 
+	}
+
+	public static Object retornaValor(Map map, String key) {
+		Iterator it = map.entrySet().iterator();
+		Object value = null;
+		while (it.hasNext()) {
+			Map.Entry entry = (Map.Entry) it.next();
+			String keyAux = (String) entry.getKey();
+			if (keyAux.equals(key)) {
+				value = (Object) entry.getValue();
+				break;
+			}
+		}
+		return value;
 	}
 
 }
