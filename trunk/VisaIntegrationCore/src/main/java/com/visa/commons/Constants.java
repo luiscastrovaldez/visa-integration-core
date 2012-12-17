@@ -31,8 +31,16 @@ public final class Constants {
 	public static String SF_OBTENERNOMBREPOSTULANTE = "Pkg_Mensajeria.SF_OBTENERNOMBREPOSTULANTE";
 	public static String SF_OBTENERNOMBREALUMNOPG = "Pkg_Mensajeria.SF_OBTENERNOMBREALUMNOPG";
 	public static String SPS_USUARIOCLAVENUEVOALUMNO = "Pkg_Sso.SPS_USUARIOCLAVENUEVOALUMNO";
+	public static String SF_VERIFICAINGRESOALUMNO = "Pkg_Sso.SF_VERIFICAINGRESOALUMNO";
+	public static String SF_VERIFICACONTRATO = "Pkg_Sso.SF_VERIFICACONTRATO";
+	public static String SF_PROGRAMACIONDOCENTE = "Pkg_Sso.SF_PROGRAMACIONDOCENTE";
+	
+	
+	
+	
 
 	public static String PS_CLIENTE = "PS_CLIENTE";
+	public static String PN_INSTITUCION = "PN_INSTITUCION";	
 	public static String PN_NROTRANSACCION = "PN_NROTRANSACCION";	
 	public static String PS_VALOR = "PS_VALOR";	
 	public static String PS_PERIODOAC = "PS_PERIODOAC";
