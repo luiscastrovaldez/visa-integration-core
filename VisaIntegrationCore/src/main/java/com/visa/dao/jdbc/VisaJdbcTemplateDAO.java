@@ -59,4 +59,10 @@ public interface VisaJdbcTemplateDAO {
 	String obtenerNombrePostulante(String idPostulante) throws Exception;
 
 	Usuario obtenerDatosNuevoAlumno(String idPostulante, String carrera) throws Exception;
+	
+	Integer verificaIngresoAlumno(String psUsuario, int psInstitucion) throws Exception ;
+	
+	Integer verificaContratoActivo(String psUsuario, String dominio) throws Exception;
+		
+	Integer verificarProgramacionDocente(String psUsuario, int psInstitucion) throws Exception ;
 }
