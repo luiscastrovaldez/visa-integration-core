@@ -629,8 +629,9 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 			paramsInput = new ArrayList<SqlParameter>();
 			paramsInput.add(new SqlParameter(Constants.PS_CARRERA, OracleTypes.NVARCHAR));
 			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.PS_VALOR, OracleTypes.INTEGER));
 
-			execSp = new ExecuteProcedure(dataSource, Constants.SF_OBTENERFLAGPOSTULANTE, paramsInput, paramsOutput);
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_OBTENERFLAGPOSTULANTE, paramsInput, paramsOutput, Boolean.TRUE);
 			inputs = new HashMap<String, Object>();
 
 			inputs.put(Constants.PS_CARRERA, carrera);
@@ -909,110 +910,103 @@ public class VisaJdbcTemplateDAOImpl extends HibernateDaoSupport implements Visa
 
 	}
 
-	
-	public Integer verificaIngresoAlumno(String psUsuario, int psInstitucion)
-			throws Exception {
-		 List<SqlParameter> paramsInput = null;
-		    List<SqlOutParameter> paramsOutput = null;
-		    Map<String, Object> inputs = null;
-		    Map<String, Object> results = null;
-		    Integer flagUsuario = null;
-		    try {
-		      dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
-		      paramsInput = new ArrayList<SqlParameter>();
-		      paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
-		      paramsInput.add(new SqlParameter(Constants.PN_INSTITUCION, OracleTypes.INTEGER));
-		      
+	@SuppressWarnings("unchecked")
+	public Integer verificaIngresoAlumno(String psUsuario, int psInstitucion) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Integer flagUsuario = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PN_INSTITUCION, OracleTypes.INTEGER));
 
-		      paramsOutput = new ArrayList<SqlOutParameter>();
-		      paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
 
-		      execSp = new ExecuteProcedure(dataSource, Constants.SF_VERIFICAINGRESOALUMNO, paramsInput, paramsOutput, Boolean.TRUE);
-		      inputs = new HashMap<String, Object>();
-		      inputs.put(Constants.PS_USUARIO, psUsuario);
-		      inputs.put(Constants.PN_INSTITUCION, psInstitucion);
-		      
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_VERIFICAINGRESOALUMNO, paramsInput, paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PS_USUARIO, psUsuario);
+			inputs.put(Constants.PN_INSTITUCION, psInstitucion);
 
-		      results = execSp.executeSp(inputs);
-		      Object retorno = ExecuteProcedure.retornaValue(results);
-		      if (retorno != null) {
-		        flagUsuario = (Integer) retorno;
-		      }
-		    } catch (Exception e) {
-		      throw e;
-		    }
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				flagUsuario = (Integer) retorno;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
 
-		    return flagUsuario;
+		return flagUsuario;
 	}
-	
-	public Integer verificaContratoActivo(String psUsuario, String dominio)
-			throws Exception {
-		 List<SqlParameter> paramsInput = null;
-		    List<SqlOutParameter> paramsOutput = null;
-		    Map<String, Object> inputs = null;
-		    Map<String, Object> results = null;
-		    Integer flagUsuario = null;
-		    try {
-		      dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
-		      paramsInput = new ArrayList<SqlParameter>();
-		      paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
-		      paramsInput.add(new SqlParameter(Constants.PS_DOMINIO, OracleTypes.NVARCHAR));
-		      
 
-		      paramsOutput = new ArrayList<SqlOutParameter>();
-		      paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
+	@SuppressWarnings("unchecked")
+	public Integer verificaContratoActivo(String psUsuario, String dominio) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Integer flagUsuario = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PS_DOMINIO, OracleTypes.NVARCHAR));
 
-		      execSp = new ExecuteProcedure(dataSource, Constants.SF_VERIFICACONTRATO, paramsInput, paramsOutput, Boolean.TRUE);
-		      inputs = new HashMap<String, Object>();
-		      inputs.put(Constants.PS_USUARIO, psUsuario);
-		      inputs.put(Constants.PS_DOMINIO, dominio);
-		      
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
 
-		      results = execSp.executeSp(inputs);
-		      Object retorno = ExecuteProcedure.retornaValue(results);
-		      if (retorno != null) {
-		        flagUsuario = (Integer) retorno;
-		      }
-		    } catch (Exception e) {
-		      throw e;
-		    }
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_VERIFICACONTRATO, paramsInput, paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PS_USUARIO, psUsuario);
+			inputs.put(Constants.PS_DOMINIO, dominio);
 
-		    return flagUsuario;
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				flagUsuario = (Integer) retorno;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return flagUsuario;
 	}
-	
-	public Integer verificarProgramacionDocente(String psUsuario, int psInstitucion)
-			throws Exception {
-		 List<SqlParameter> paramsInput = null;
-		    List<SqlOutParameter> paramsOutput = null;
-		    Map<String, Object> inputs = null;
-		    Map<String, Object> results = null;
-		    Integer flagUsuario = null;
-		    try {
-		      dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
-		      paramsInput = new ArrayList<SqlParameter>();
-		      paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
-		      paramsInput.add(new SqlParameter(Constants.PN_INSTITUCION, OracleTypes.INTEGER));
-		      
 
-		      paramsOutput = new ArrayList<SqlOutParameter>();
-		      paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
+	@SuppressWarnings("unchecked")
+	public Integer verificarProgramacionDocente(String psUsuario, int psInstitucion) throws Exception {
+		List<SqlParameter> paramsInput = null;
+		List<SqlOutParameter> paramsOutput = null;
+		Map<String, Object> inputs = null;
+		Map<String, Object> results = null;
+		Integer flagUsuario = null;
+		try {
+			dataSource = SessionFactoryUtils.getDataSource(getSession().getSessionFactory());
+			paramsInput = new ArrayList<SqlParameter>();
+			paramsInput.add(new SqlParameter(Constants.PS_USUARIO, OracleTypes.NVARCHAR));
+			paramsInput.add(new SqlParameter(Constants.PN_INSTITUCION, OracleTypes.INTEGER));
 
-		      execSp = new ExecuteProcedure(dataSource, Constants.SF_PROGRAMACIONDOCENTE, paramsInput, paramsOutput, Boolean.TRUE);
-		      inputs = new HashMap<String, Object>();
-		      inputs.put(Constants.PS_USUARIO, psUsuario);
-		      inputs.put(Constants.PN_INSTITUCION, psInstitucion);
-		      
+			paramsOutput = new ArrayList<SqlOutParameter>();
+			paramsOutput.add(new SqlOutParameter(Constants.RETURN_VALUE, OracleTypes.INTEGER));
 
-		      results = execSp.executeSp(inputs);
-		      Object retorno = ExecuteProcedure.retornaValue(results);
-		      if (retorno != null) {
-		        flagUsuario = (Integer) retorno;
-		      }
-		    } catch (Exception e) {
-		      throw e;
-		    }
+			execSp = new ExecuteProcedure(dataSource, Constants.SF_PROGRAMACIONDOCENTE, paramsInput, paramsOutput, Boolean.TRUE);
+			inputs = new HashMap<String, Object>();
+			inputs.put(Constants.PS_USUARIO, psUsuario);
+			inputs.put(Constants.PN_INSTITUCION, psInstitucion);
 
-		    return flagUsuario;
+			results = execSp.executeSp(inputs);
+			Object retorno = ExecuteProcedure.retornaValue(results);
+			if (retorno != null) {
+				flagUsuario = (Integer) retorno;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return flagUsuario;
 	}
 
 }

@@ -204,7 +204,7 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 	@Test
 	public void obtenerNombreAlumnoPGTest() {
 		try {
-			final String info = visaJdbcTemplateDAO.obtenerNombreAlumnoPG("a2009900018");
+			final String info = visaJdbcTemplateDAO.obtenerNombreAlumnoPG("a2012900222");
 			System.out.println(info);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -240,6 +240,17 @@ public class VisaJdbcTemplateDAOTest extends VisaCoreTest {
 			final Usuario info = visaJdbcTemplateDAO.obtenerDatosNuevoAlumno("11195AO", "159");
 			System.out.println(info.getUsuario());
 			System.out.println(info.getClave());
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void obtenerFlagPostulanteTest() {
+		try {
+			final Integer info = visaJdbcTemplateDAO.obtenerFlagPostulante("13132");
+			System.out.println(info);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
