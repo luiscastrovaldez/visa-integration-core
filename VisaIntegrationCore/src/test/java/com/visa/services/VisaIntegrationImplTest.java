@@ -170,5 +170,21 @@ public class VisaIntegrationImplTest extends VisaCoreTest {
 
 	}
 	
+
+	
+	@Test
+	public void verificaContratoActivoTest() {
+		Integer flag;
+		try {
+			flag = visaIntegration.verificaContratoActivo("a2012900222","uwiener.edu.pe");
+			System.out.println(" flag " + flag);
+			Assert.assertNotNull(flag);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
 	
 }
