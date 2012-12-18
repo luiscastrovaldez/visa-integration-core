@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import com.visa.domain.Usuario;
 @Service("visaIntegration")
 public class VisaIntegrationImpl implements VisaIntegration {
 
+	private static final Logger LOGGER = Logger.getLogger(VisaIntegrationImpl.class);
+	
 	@Autowired
 	VisaJdbcTemplateDAO visaJdbcTemplateDAO;
 
@@ -135,33 +138,43 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		return visaJdbcTemplateDAO.obtenerDatosNuevoAlumno(idPostulante, carrera);
 	}
 	
-	public int verificarAccesoUsuario(int intInstitucion, String usuario, String clave, int intPerfil, String strDominio) throws Exception{
+	public int verificarAccesoUsuario(int intInstitucion, String usuario,
+			String clave, int intPerfil, String strDominio) throws Exception {
 		int intCodRpta = 0;
-		Integer flag = visaJdbcTemplateDAO.verificaUsuarioExiste(usuario, clave);
+		Integer flag = visaJdbcTemplateDAO
+				.verificaUsuarioExiste(usuario, clave);
 		
-		if (flag != null && flag.intValue() == 0){
+		if (flag != null && flag.intValue() == 0) {
 			intCodRpta = 1;
 		} else {
-			if (intPerfil == 2){
-				Integer resp = visaJdbcTemplateDAO.verificaIngresoAlumno(usuario, intInstitucion);
-				if (resp!= null && resp.intValue() <= 0){
-					intCodRpta = 2;		
-				} else {
-					Integer contratoActivo = visaJdbcTemplateDAO.verificaContratoActivo(usuario, strDominio);
-					if (contratoActivo !=null && contratoActivo.intValue() <=0){
-						intCodRpta = 3;	
+			if (intPerfil == 2) {
+				Integer resp = visaJdbcTemplateDAO.verificaIngresoAlumno(
+						usuario, intInstitucion);
+				
+				if (resp != null && resp.intValue() <= 0) {
+					intCodRpta = 2;
+				}
+
+			} else {
+				Integer contratoActivo = visaJdbcTemplateDAO
+						.verificaContratoActivo(usuario, strDominio);
+				
+				if (contratoActivo != null && contratoActivo.intValue() <= 0) {
+					intCodRpta = 3;
+				} else if (intPerfil == 3) {
+					Integer prog = visaJdbcTemplateDAO
+							.verificarProgramacionDocente(usuario,
+									intInstitucion);
+					
+					if (prog != null && prog.intValue() <= 0) {
+						intCodRpta = 4;
 					}
 				}
-			} else if (intPerfil == 3){
-				Integer prog = visaJdbcTemplateDAO.verificarProgramacionDocente(usuario, intInstitucion);
-				if (prog !=null && prog.intValue() <=0){
-					intCodRpta = 4;	
-				}
 			}
-		}		
+		}
+
 		return intCodRpta;
 	}
-
 	
 	public Integer verificaIngresoAlumno(String psUsuario, int psInstitucion) throws Exception {
 		return visaJdbcTemplateDAO.verificaIngresoAlumno(psUsuario, psInstitucion);
