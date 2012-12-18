@@ -21,7 +21,8 @@
 	
 	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
 		<property name="transactionManagerName" value="java:/TransactionManager"/>
-        <property name="userTransactionName" value="UserTransaction"/>       
+        <property name="userTransactionName" value="UserTransaction"/>  
+        <property name="allowCustomIsolationLevels" value="true"/>     
 	</bean>
 	
 	
