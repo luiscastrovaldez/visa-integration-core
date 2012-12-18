@@ -31,7 +31,10 @@
 				<directory>src/main/java/com/visa/domain/hbm</directory>
 				<targetPath>com/visa/domain/hbm</targetPath>					
 			</resource>
-			
+			<resource>
+                <directory>src/main/java/com/visa/templates/html</directory>
+                <targetPath>com/visa/templates/html</targetPath>                                        
+           </resource>
 		</resources>
 		<plugins>
 			<plugin>
