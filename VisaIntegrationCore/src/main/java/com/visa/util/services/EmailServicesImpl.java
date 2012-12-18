@@ -16,6 +16,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ import com.visa.commons.Constants;
 @Service("emailServices")
 public class EmailServicesImpl implements EmailServices {
 
-	private static String CONTENT_ID = "logo";
+	private static final Logger LOGGER = Logger.getLogger(EmailServicesImpl.class);
 
 	private VelocityEngineFactoryBean velocityEngineFactoryBean = null;
 	private Properties velocityProperties = null;
@@ -54,110 +55,92 @@ public class EmailServicesImpl implements EmailServices {
 	private String usuario;
 	@Value("#{propsEmail.clave}")
 	private String clave;
-	
+
 	public String getFrom() {
 		return from;
 	}
-
 
 	public void setFrom(String from) {
 		this.from = from;
 	}
 
-
 	public String getServidor() {
 		return servidor;
 	}
-
 
 	public void setServidor(String servidor) {
 		this.servidor = servidor;
 	}
 
-
 	public String getContentType() {
 		return contentType;
 	}
-
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
 
-
 	public String getMailTemplateNuevoAlumno() {
 		return mailTemplateNuevoAlumno;
 	}
-
 
 	public void setMailTemplateNuevoAlumno(String mailTemplateNuevoAlumno) {
 		this.mailTemplateNuevoAlumno = mailTemplateNuevoAlumno;
 	}
 
-
 	public String getMailTemplateConfirmacionpago() {
 		return mailTemplateConfirmacionpago;
 	}
-
 
 	public void setMailTemplateConfirmacionpago(String mailTemplateConfirmacionpago) {
 		this.mailTemplateConfirmacionpago = mailTemplateConfirmacionpago;
 	}
 
-
 	public String getSubjectNuevoAlumno() {
 		return subjectNuevoAlumno;
 	}
-
 
 	public void setSubjectNuevoAlumno(String subjectNuevoAlumno) {
 		this.subjectNuevoAlumno = subjectNuevoAlumno;
 	}
 
-
 	public String getSubjectConfirmacionPago() {
 		return subjectConfirmacionPago;
 	}
-
 
 	public void setSubjectConfirmacionPago(String subjectConfirmacionPago) {
 		this.subjectConfirmacionPago = subjectConfirmacionPago;
 	}
 
-
 	public String getLogoUrl() {
 		return logoUrl;
 	}
-
 
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 	}
 
-
 	public String getUsuario() {
 		return usuario;
 	}
-
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
-
 	public String getClave() {
 		return clave;
 	}
-
 
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
 
-
 	public void sendEmail(DatosCorreo datosCorreo) {
 		try {
-										
+			LOGGER.info("----Enviando Correo---");
+			LOGGER.info(datosCorreo.getAddressTo());
+			LOGGER.info(datosCorreo.getNombre());
 			String body = "";
 			String subject = "";
 			String template = "";
@@ -210,7 +193,7 @@ public class EmailServicesImpl implements EmailServices {
 		Transport trans = null;
 
 		try {
-			System.out.println(":: sendEmail :: Starting execution...");
+			LOGGER.info(":: sendEmail :: Starting execution...");
 			if (host == null || "".equals(host)) {
 				throw new Exception("Host parameter is required!");
 			}
@@ -290,7 +273,7 @@ public class EmailServicesImpl implements EmailServices {
 			trans.connect(host, usuario,clave);
 			
 			trans.sendMessage(message, message.getAllRecipients());
-			System.out.println(":: sendEmail :: Finishing execution...");
+			LOGGER.info(":: sendEmail :: Finishing execution...");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
