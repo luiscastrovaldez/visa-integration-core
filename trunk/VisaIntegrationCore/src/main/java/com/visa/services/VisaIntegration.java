@@ -58,7 +58,7 @@ public interface VisaIntegration {
 
 	Usuario obtenerDatosNuevoAlumno(String idPostulante, String carrera) throws Exception;
 	
-	int verificarAccesoUsuario(int intInstitucion, String usuario, String clave, int intPerfil, String strDominio) throws Exception;
+	int verificaAccesoUsuario(int intInstitucion, String usuario, String clave, int intPerfil, String strDominio) throws Exception;
 	
 	Integer verificaIngresoAlumno(String psUsuario, int psInstitucion) throws Exception;
 	

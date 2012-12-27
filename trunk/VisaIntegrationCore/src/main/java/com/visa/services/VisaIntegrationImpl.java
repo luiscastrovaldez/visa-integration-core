@@ -138,7 +138,7 @@ public class VisaIntegrationImpl implements VisaIntegration {
 		return visaJdbcTemplateDAO.obtenerDatosNuevoAlumno(idPostulante, carrera);
 	}
 	
-	public int verificarAccesoUsuario(int intInstitucion, String usuario,
+	public int verificaAccesoUsuario(int intInstitucion, String usuario,
 			String clave, int intPerfil, String strDominio) throws Exception {
 		int intCodRpta = 0;
 		Integer flag = visaJdbcTemplateDAO
