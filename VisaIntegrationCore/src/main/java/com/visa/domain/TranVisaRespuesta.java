@@ -23,6 +23,7 @@ public class TranVisaRespuesta {
 	private String fechaHoraDevolucion;
 	private String datoComercio;
 	private String descripcionProducto;
+	private String mensaje;
 
 	public String getEstado() {
 		return estado;
@@ -190,6 +191,14 @@ public class TranVisaRespuesta {
 
 	public void setDescripcionProducto(String descripcionProducto) {
 		this.descripcionProducto = descripcionProducto;
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
 
 }
